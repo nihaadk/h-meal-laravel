@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - heroku_8f819ab2743b292@us-cdbr-iron-east-03.cleardb.net" uuid="07df3024-b48e-4b4e-8fc7-62edc5338718">
+      <secret-storage>master_key</secret-storage>
+      <user-name>bf3baa5eb47eef</user-name>
+      <schema-pattern>heroku_8f819ab2743b292.*</schema-pattern>
+      <default-schemas>heroku_8f819ab2743b292.*</default-schemas>
+    </data-source>
+  </component>
+</project>

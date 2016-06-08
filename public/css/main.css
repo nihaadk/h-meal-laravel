@@ -1,0 +1,193 @@
+html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+
+.tabs .tab a {
+    color: #4a148c;
+}
+
+.tabs .tab a:hover{
+    color: #4a148c;
+}
+
+.tabs .tab.disabled a {
+    color: #4a148c;
+}
+
+
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #4a148c;
+}
+
+.td-icon {
+    position: relative; float: right;
+}
+
+.tbody-center tr td {
+    text-align: center;
+}
+
+/* label color */
+.input-field label {
+    color: #000;
+}
+
+/* type = number */
+/* label focus color */
+.input-field input[type=number]:focus + label {
+    color: #4a148c;
+}
+
+/* label underline focus color */
+.input-field input[type=number]:focus {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* valid color */
+.input-field input[type=number].valid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* invalid color */
+.input-field input[type=number].invalid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* type = password */
+/* label focus color */
+.input-field input[type=password]:focus + label {
+    color: #4a148c;
+}
+
+/* label underline focus color */
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* valid color */
+.input-field input[type=password].valid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* invalid color */
+.input-field input[type=password].invalid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* type = email*/
+/* label focus color */
+.input-field input[type=email]:focus + label {
+    color: #4a148c;
+}
+
+/* label underline focus color */
+.input-field input[type=email]:focus {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* valid color */
+.input-field input[type=email].valid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* invalid color */
+.input-field input[type=email].invalid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* type = text */
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #4a148c;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #4a148c;
+}
+
+/* type = search */
+/* label focus color */
+.input-field input[type=search]:focus + label {
+    color: #4a148c;
+}
+
+/* label underline focus color */
+.input-field input[type=search]:focus {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* valid color */
+.input-field input[type=search].valid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* invalid color */
+.input-field input[type=search].invalid {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #4a148c;
+}
+
+.logo_header_size_min {
+    width: 20%;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 5%;
+}
+
+/* Toggle */
+#search-field {
+    display: none;
+}
+
+#search-toggle{
+    margin-top: 25%;
+    margin-left: 100%;
+}
+
+hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #ccc, #ccc);
+}
+
+.tabs .indicator {
+    background-color: #4a148c;
+}
+
