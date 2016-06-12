@@ -9,7 +9,7 @@
 		<div class="col s4 pull-s7">
 			<div class="input-field">
 				{!! FORM::open(['method' => 'GET']) !!}
-				{!! FORM::input('search','search', null, ['placeholder' => 'Search... ']) !!}
+				{!! FORM::input('search','search', null, ['placeholder' => 'Vpiši ZZZS številko ']) !!}
 				{!! FORM::close() !!}
 			</div>
 		</div>

@@ -18,35 +18,22 @@ class PatientController extends Controller
      * */
     public function index(Request $request)
     {
-
         $errorMessage = null;
-
         if (Auth::check()) {
             $query = $request->search;
-
             if ($query) {
-
-                // Search with antribut First_name
-                $patients = DB::table('patients')->where('first_name', $query)->get();
-
+                $patients = DB::table('patients')->where('zzzs_number', $query)->get();
                 if (empty($patients)) {
-                    // Search with antribut First_name
-                    $patients = DB::table('patients')->where('last_name', $query)->get();
+                    $patients = DB::table('patients')->where('zzzs_number', $query)->get();
                 }
-
                 return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage]);
-
-
             } else {
                 $patients = Patient::all();
                 return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage]);
             }
-
-
         } else {
             return redirect()->to('/');
         }
-
     }
 
     /*

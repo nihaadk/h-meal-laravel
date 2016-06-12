@@ -9,7 +9,7 @@ class Patient extends Model
 {
     protected $table = 'patients';
 
-    protected $fillable = ['first_name','last_name', 'address', 'date'];
+    protected $fillable = ['first_name','last_name', 'address', 'date','zzzs_number'];
 
     public function getVisits(){
 
