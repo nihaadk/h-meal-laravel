@@ -15,21 +15,53 @@
                 <table class="centered">
                     <thead>
                     <tr>
-                        <th data-field="stevilkaObiska">Številka obiska</th>
-                        <th data-field="datum">Datum</th>
+                        <th data-field="datum">Datum meritve</th>
+                        <th data-field="vrstHrane">Vrst hrane</th>
                         <th data-field="kodaHrane">Koda hrane</th>
-                        <th data-field="predviden">Predviden</th>
+                        <th data-field="mascober">Masčoba</th>
+                        <th data-field="beljankovine">Beljankovine</th>
+                        <th data-field="kalorije">Kalorije</th>
+                        <th data-field="ogljikohidrati">Oglj.hidrati</th>
                     </tr>
                     </thead>
 
                     <tbody>
                     @foreach ( $Patient->getDayvisits as $dv)
                     <tr>
-                        <td>{{ $dv->number_of_visits }}</td>
                         <td>{{ $dv->date_of_visit }}</td>
+                        <td>{{ $dv->food_type }}</td>
                         <td>{{ $dv->food_code }}</td>
-                        <td>{{ $dv->provided }}</td>
+                        <td>{{ $dv->fat }}</td>
+                        <td>{{ $dv->protein }}</td>
+                        <td>{{ $dv->calories }}</td>
+                        <td>{{ $dv->carbohydrates }}</td>
+                        @can('admin')
+                            <td class="td-icon">
+                                <a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$dv->id }}"  data-method="delete">
+                                    <i class="material-icons  red darken-1">delete</i>
+                                </a>
+                            </td>
+                        @endcan
                     </tr>
+
+
+                    <!-- Delete Day Visit-->
+                    <div id="{{ 'deletemodel'.$dv->id }}" class="modal bottom-sheet">
+                        <div class="modal-content">
+                            <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                        </div>
+                        <div class="modal-footer">
+
+                            <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Preklic</a>
+
+                            {!! FORM::open([
+                                'method' => 'DELETE',
+                                'url' => ['app/patient/day_visit_delete', $dv->id]]) !!}
+                            {!! FORM::submit('Delete', ['class' => 'btn danger-3 red']) !!}
+                        </div>
+                        {!! FORM::close() !!}
+                    </div>
+
                     @endforeach
                     </tbody>
                 </table>
@@ -64,7 +96,34 @@
                             <td>{{ $ms->date_of_measurement }}</td>
                             <td>{{ $ms->number_of_visits }}</td>
                             <td>{{ $ms->measurement  }}</td>
+                            @can('admin')
+                                <td class="td-icon">
+                                    <a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$ms->id }}"  data-method="delete">
+                                        <i class="material-icons  red darken-1">delete</i>
+                                    </a>
+                                </td>
+                            @endcan
                         </tr>
+                        
+
+                        <!-- Delete Measured sugar-->
+                        <div id="{{ 'deletemodel'.$ms->id }}" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                            </div>
+                            <div class="modal-footer">
+
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Preklic</a>
+
+                                {!! FORM::open([
+                                    'method' => 'DELETE',
+                                    'url' => ['app/patient/m_sugar_delete', $ms->id]]) !!}
+                                {!! FORM::submit('Delete', ['class' => 'btn danger-3 red']) !!}
+                            </div>
+                            {!! FORM::close() !!}
+                        </div>
+
+
                     @endforeach
                     </tbody>
                 </table>
@@ -87,7 +146,7 @@
                 <table class="centered">
                     <thead>
                     <tr>
-                        <th data-field="stevilkaObiska">Številka obiska</th>
+                        <th data-field="stevilkaObiska">Število hospitalizacije</th>
                         <th data-field="Datum zacetka hospitalizacije">Datum z/hosp.</th>
                         <th data-field="Datum konca hospitalizacije">Datum k/hosp.</th>
                         <th data-field="koda odelka">koda odelka</th>
@@ -99,17 +158,42 @@
                     </thead>
 
                     <tbody>
-                    @foreach ( $Patient->getVisits as $dv)
+                    @foreach ( $Patient->getVisits as $v)
                         <tr>
-                            <td>{{ $dv->number_of_visits }}</td>
-                            <td>{{ $dv->start_date }}</td>
-                            <td>{{ $dv->end_date }}</td>
-                            <td>{{ $dv->section_code }}</td>
-                            <td>{{ $dv->height }}</td>
-                            <td>{{ $dv->heaviness }}</td>
-                            <td>{{ $dv->i_heaviness }}</td>
-                            <td>{{ $dv->nutritive_needs }}</td>
+                            <td>{{ $v->number_of_visits }}</td>
+                            <td>{{ $v->start_date }}</td>
+                            <td>{{ $v->end_date }}</td>
+                            <td>{{ $v->section_code }}</td>
+                            <td>{{ $v->height }}</td>
+                            <td>{{ $v->heaviness }}</td>
+                            <td>{{ $v->i_heaviness }}</td>
+                            <td>{{ $v->nutritive_needs }}</td>
+                            @can('admin')
+                                <td class="td-icon">
+                                    <a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$v->id }}"  data-method="delete">
+                                        <i class="material-icons  red darken-1">delete</i>
+                                    </a>
+                                </td>
+                            @endcan
                         </tr>
+
+                         <!-- Delete Visit sugar-->
+                        <div id="{{ 'deletemodel'.$v->id }}" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                            </div>
+                            <div class="modal-footer">
+
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Preklic</a>
+
+                                {!! FORM::open([
+                                    'method' => 'DELETE',
+                                    'url' => ['app/patient/visits_delete', $v->id]]) !!}
+                                {!! FORM::submit('Delete', ['class' => 'btn danger-3 red']) !!}
+                            </div>
+                            {!! FORM::close() !!}
+                        </div>
+
                     @endforeach
                     </tbody>
                 </table>
@@ -141,21 +225,40 @@
            ])
 		!!}
         <div class="modal-content">
+
             <div class="input-field col 12">
-                {!! FORM::input('number','number_of_visits',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('number_of_visits', 'Število obiskov:') !!}
+                {!! FORM::select('food_type', array('Per os'=>'Per os','Inravenozno'=>'Inravenozno'),"Vrsta hrane") !!}
+                {!! FORM::label('food_type', 'Vrsta hrane:') !!}
             </div>
-            <div class="input-field col 12">
-                {!! FORM::text('date_of_visit', null ,array('class' => 'datepicker')) !!}
-                {!! FORM::label('date_of_visit', 'Datum vnosa:') !!}
-            </div>
+
             <div class="input-field col 12">
                 {!! FORM::select('food_code', $Food_list,"Kode hrane") !!}
                 {!! FORM::label('food_code', 'Koda hrane:') !!}
             </div>
+
             <div class="input-field col 12">
-                {!! FORM::text('provided', null, array('class' => 'datepicker')) !!}
-                {!! FORM::label('provided', 'Predviden:') !!}
+                {!! FORM::text('date_of_visit', null ,array('class' => 'datepicker')) !!}
+                {!! FORM::label('date_of_visit', 'Datum vnosa:') !!}
+            </div>
+
+            <div class="input-field col 12">
+               {!! FORM::input('number','fat',null, array('min'=>'0','max'=>'9999')) !!}
+                {!! FORM::label('fat', 'Maščoba \100ml:') !!}
+            </div>
+
+            <div class="input-field col 12">
+               {!! FORM::input('number','protein',null, array('min'=>'0','max'=>'9999')) !!}
+                {!! FORM::label('protein', 'Beljankovine \100ml:') !!}
+            </div>
+
+            <div class="input-field col 12">
+               {!! FORM::input('number','calories',null, array('min'=>'0','max'=>'9999')) !!}
+                {!! FORM::label('calories', 'Kalorije \100ml:') !!}
+            </div>
+
+            <div class="input-field col 12">
+               {!! FORM::input('number','carbohydrates',null, array('min'=>'0','max'=>'9999')) !!}
+                {!! FORM::label('carbohydrates', 'Oglj.hidrati \100ml:') !!}
             </div>
         </div>
         <div class="modal-footer">
@@ -203,10 +306,6 @@
            ])
 		!!}
         <div class="modal-content">
-            <div class="input-field col 12">
-                {!! FORM::input('number','number_of_visits',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('number_of_visits', 'Število obiska:') !!}
-            </div>
 
             <div class="input-field col 12">
                 {!! FORM::text('start_date', null, array('class' => 'datepicker')) !!}

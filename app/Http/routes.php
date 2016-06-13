@@ -32,9 +32,15 @@ Route::get('app/food/quantity/{id}', 'FoodController@upQuantity');
 
 // Patient details 
 Route::get('app/patient/detail/{id}','PatientDetailController@showDetails' );
+
 Route::post('app/patient/store_day_v/{id}', 'PatientDetailController@storeDayVisits');
+Route::delete('app/patient/day_visit_delete/{id}', 'PatientDetailController@destroyds');
+
 Route::post('app/patient/store_m_sugar/{id}', 'PatientDetailController@storeMsugar');
+Route::delete('app/patient/m_sugar_delete/{id}', 'PatientDetailController@destroyms');
+
 Route::post('app/patient/store_visits/{id}', 'PatientDetailController@storeVisits');
+Route::delete('app/patient/visits_delete/{id}', 'PatientDetailController@destroyv');
 
 
 

@@ -15,7 +15,7 @@
 		</div>
 	</div>
 
-	<table class="responsive-table bordered highlight">
+	<table class="centered bordered highlight">
 		@if( count($Foods) == 0)
 			<div class="card-panel red lighten-1 white-text"><h5 style="text-align: center;">Seznam je prazen !</h5></div>
 		@else
@@ -24,9 +24,10 @@
 				<th data-field="titel">Naziv</th>
 				<th data-field="food_code">Koda</th>
 				<th data-field="fat">Maščoba</th>
-				<th data-field="protein">Beljankovine</th>
-				<th data-field="calories">Kalorije</th>
-				<th data-field="carbohydrates">Oglj.hidrati</th>
+				<th data-field="protein">BELJ</th>
+				<th data-field="calories">KALO</th>
+				<th data-field="carbohydrates">OGHIDR</th>
+				<th data-field="food_type">Vrsta hrane</th>
 				<th data-field="quantity">Kolicina</th>
 			</tr>
 			</thead>
@@ -36,12 +37,13 @@
 
 			@foreach ( $Foods as $f)
 				<tr>
-					<td style="text-align: center">{{ $f->title  }}</td>
+					<td>{{ $f->title  }}</td>
 					<td>{{ $f->food_code }}</td>
 					<td>{{ $f->fat }}</td>
 					<td >{{ $f->protein }}</td>
 					<td>{{ $f->calories }}</td>
 					<td>{{ $f->carbohydrates }}</td>
+					<td>{{ $f->food_type }}</td>
 					<td>{{ $f->quantity }}</td>
 
 					<td class="td-icon">
@@ -89,6 +91,12 @@
                        ])
                     !!}
 					<div class="modal-content">
+
+						<div class="input-field col 12">
+			    			{!! FORM::select('food_type', array('Per os'=>'Per os','Inravenozno'=>'Inravenozno'),"Vrsta hrane") !!}
+			    			{!! FORM::label('food_type', 'Vrsta hrane:') !!}
+           				</div>
+
 						<div class="input-field col 12">
 							{!! FORM::text('title',null) !!}
 							{!! FORM::label('title', 'Naziv proizvoda:') !!}
@@ -153,9 +161,15 @@
 	<div id="modal_add" class="modal modal-fixed-footer">
 			{!! FORM::open(['url' => 'app/food/add']) !!}
 	    <div class="modal-content">
+
+	    	<div class="input-field col 12">
+			    {!! FORM::select('food_type', array('Per os'=>'Per os','Inravenozno'=>'Inravenozno'),"Vrsta hrane") !!}
+			    {!! FORM::label('food_type', 'Vrsta hrane:') !!}
+           	</div>
+
 			<div class="input-field col 12">
-				{!! FORM::text('titel',null) !!}
-				{!! FORM::label('titel', 'Naziv proizvoda:') !!}
+				{!! FORM::text('title',null) !!}
+				{!! FORM::label('title', 'Naziv proizvoda:') !!}
 			</div>
 
 			<div class="input-field col 12">

@@ -52,11 +52,12 @@ class FoodController extends Controller
         $food = new Food();
 
         $food->food_code = $request->food_code;
-        $food->titel = $request->titel;
+        $food->title = $request->title;
         $food->fat = $request->fat;
         $food->protein = $request->protein;
         $food->calories = $request->calories;
         $food->carbohydrates = $request->carbohydrates;
+        $food->food_type = $request->food_type;
         $food->quantity = $request->quantity;
 
 
@@ -94,6 +95,8 @@ class FoodController extends Controller
         $food->protein = $request->protein;
         $food->calories = $request->calories;
         $food->carbohydrates = $request->carbohydrates;
+        $food->food_type = $request->food_type;
+        dd($request->food_type);
         $food->quantity = $request->quantity;
 
         $food->save();
