@@ -14,7 +14,7 @@
           
               @yield('welcome')
 
-              @yield('app')
+              @yield('chart')
               @yield('login')
               @yield('user-list')
               @yield('patient')

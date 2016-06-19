@@ -20,11 +20,14 @@ class AdminController extends Controller
      * Return List all Users
      *
      * */
-    public function showApp()
-    {
+    public function index(Request $request)
+    {   
+        
+
         if(Auth::check())
         {
-            return view('app');
+            return view('pages.welcome');
+                
         }else{
             return redirect()->to('/');
         }

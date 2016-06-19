@@ -4,7 +4,11 @@
 Route::get('/', 'Auth\AuthController@getLogin');
 
 // App
-Route::get('app', 'AdminController@showApp');
+Route::get('app', 'AdminController@index');
+
+// Chart 
+Route::get('app/chart/index', 'ChartController@index');
+Route::post('app/chart/index', 'ChartController@update');
 
 //Admin dashboard and controll Users 
 Route::get('app/user/list', 'AdminController@showUserList');

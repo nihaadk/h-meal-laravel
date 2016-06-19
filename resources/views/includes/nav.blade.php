@@ -24,6 +24,10 @@
       </li>
 
       <li>
+        <a href="/app/chart/index">Vizualizacija Podataka<i class="fa fa-area-chart material-icons right"></i></a>
+      </li>
+
+      <li>
         <a class="dropdown-button" href="#" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">perm_identity</i></a>
       </li>
     </ul>

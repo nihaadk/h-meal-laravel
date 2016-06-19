@@ -275,6 +275,9 @@
             'url' => ['app/patient/store_m_sugar', $Patient->id]
            ])
 		!!}
+
+        {!! Form::close() !!}
+        
         <div class="modal-content">
             <div class="input-field col 12">
                 {!! FORM::text('date_of_measurement', null, array('class' => 'datepicker')) !!}
@@ -287,7 +290,7 @@
             </div>
             <div class="input-field col 12">
                 {!! FORM::input('number','measurement',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('measurement', 'Meritev:') !!}
+                {!! FORM::label('measurement', 'Meritev (mmol/l):') !!}
             </div>
         </div>
         <div class="modal-footer">
