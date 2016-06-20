@@ -22,15 +22,7 @@ class AdminController extends Controller
      * */
     public function index(Request $request)
     {   
-        
-
-        if(Auth::check())
-        {
-            return view('pages.welcome');
-                
-        }else{
-            return redirect()->to('/');
-        }
+        return view('pages.welcome');
     }
 
     /*
