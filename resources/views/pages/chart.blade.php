@@ -7,13 +7,18 @@
         {!! FORM::open(array('url' => 'app/chart/index', 'method' => 'post')) !!}
         <div class="row">
           <div class="col s3">
-            {!!  FORM::select('chart', array('bar' => 'Bar', 'line' => 'Line')) !!}
+            {!!  FORM::select('chart', array('bar' => 'Stolpčni graf', 'line' => 'Črtni graf'), $lastSelectChart) !!}
           </div>
           <div class="col s3">
-             {!! FORM::input('text','zzzs_number', null, ['placeholder' => 'ZZZS številka']) !!}
+             {!! FORM::input('text','bolnik', $bolnik, 
+             ['data-list' => $list,
+              'data-minchars' => '1',
+              'class' => 'awesomplete',
+              'placeholder' => 'Vpiši ZSSS številko bolnika']) 
+             !!}
           </div>
           <div class="col s3">
-            {!! FORM::select('tabela', array('Dnevni vnosi' => 'Dnevni vnosi', 'Izmjereni sladkor' => 'Izmjereni sladkor')) !!}
+            {!! FORM::select('tabela', array('Dnevni vnosi' => 'Dnevni vnosi', 'Izmjereni sladkor' => 'Izmjereni sladkor'), $lastSelectTabel) !!}
           </div>
           <div class="col s3">
             {!! FORM::submit('Prikaži', ['class' => 'btn btn-primary purple darken-4']) !!}
@@ -21,21 +26,22 @@
         </div>
         {!! Form::close() !!}
       </div>
-      @if($xdata1 == null && $xdata2 == null && $xdata3 == null && $chart == null)
+       
+        {{ $error }}
         @if($error != null)
             <div class="col s12">
               <div class="card-panel red center white-text"><h4>{{ $error }}</h4></div>
             </div>
+        @elseif( $xdata1 == '[]' || $xdata1 == '[]' && $xdata2 == '[]' && $xdata3 == '[]' && $xdata4 == '[]' )
+            <div class="col s12">
+              <div class="card-panel red center white-text"><h4>Bolnik nima vnešnih podatkov. </h4></div>
+            </div>
         @else
             <div class="col s12">
-              <div class="card-panel purple center white-text"><h4>Prosim vnesite parametre za prikaz Statistike</h4></div>
+              <canvas id="chart" width="300" height="150"></canvas>
             </div>
         @endif
-      
-      @endif
-        <div class="col s12">
-          <canvas id="chart" width="300" height="150"></canvas>
-        </div>
+
     </div>
   </div>
 </div>

@@ -33,6 +33,9 @@ html {
     color: #000;
 }
 
+
+
+
 /* type = number */
 /* label focus color */
 .input-field input[type=number]:focus + label {

@@ -24,7 +24,7 @@
       </li>
 
       <li>
-        <a href="/app/chart/index">Vizualizacija Podataka<i class="fa fa-area-chart material-icons right"></i></a>
+        <a href="/app/chart/index">Prikaz grafov<i class="fa fa-area-chart material-icons right"></i></a>
       </li>
 
       <li>
