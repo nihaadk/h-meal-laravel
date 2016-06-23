@@ -12,7 +12,7 @@
           <div class="col s3">
              {!! FORM::input('text','bolnik', $bolnik, 
              ['data-list' => $list,
-              'data-minchars' => '1',
+              'data-minchars' => '3',
               'class' => 'awesomplete',
               'placeholder' => 'Vpiši ZSSS številko bolnika']) 
              !!}
