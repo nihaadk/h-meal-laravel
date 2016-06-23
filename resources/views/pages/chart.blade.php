@@ -27,7 +27,7 @@
         {!! Form::close() !!}
       </div>
        
-        {{ $error }}
+       
         @if($error != null)
             <div class="col s12">
               <div class="card-panel red center white-text"><h4>{{ $error }}</h4></div>

@@ -163,7 +163,7 @@
 	    <div class="modal-content">
 
 	    	<div class="input-field col 12">
-			    {!! FORM::select('food_type', array('Per os'=>'Per os','Inravenozno'=>'Inravenozno'),"Vrsta hrane") !!}
+			    {!! FORM::select('food_type', array('Per os'=>'Per os','Intravenozno'=>'Intravenozno'),"Vrsta hrane") !!}
 			    {!! FORM::label('food_type', 'Vrsta hrane:') !!}
            	</div>
 
