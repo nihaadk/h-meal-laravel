@@ -11,7 +11,12 @@
 		<div class="col s4 pull-s7">
 			<div class="input-field">
 				{!! FORM::open(['method' => 'GET']) !!}
-				{!! FORM::input('search','search', null, ['placeholder' => 'Search... ']) !!}
+				{!! FORM::input('search','search', null, 
+				   ['data-list' => $list,
+              		'data-minchars' => '2',
+              		'class' => 'awesomplete',
+              		'placeholder' => 'Iskanje, vpiši kodo hrane']) 
+              	!!}
 				{!! FORM::close() !!}
 			</div>
 		</div>

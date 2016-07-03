@@ -35,30 +35,19 @@ class AdminController extends Controller
         if(Auth::check())
         {
             $query = $request->search;
-
-            if($query){
-                
+            if($query){   
                 $users = DB::table('users')->where('name', $query)->get();
-
-                return view('pages.user_list',['Users' => $users]);
-
-
+                return view('pages.user_list',['Users' => $users, 'list' => $this->returnUserList()]);
             }else{
                 $users = User::all();
-                return view('pages.user_list',['Users' => $users]);
+                return view('pages.user_list',['Users' => $users, 'list' => $this->returnUserList()]);
             }
-
-
         }else{
             return redirect()->to('/');
         }
     }
 
-    /*
-     *
-     * Add User
-     *
-     * */
+   
     public function addUser(Request $request)
     {
         // validator
@@ -74,10 +63,7 @@ class AdminController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        
-        
-
-        
+       
         // create new User, Role, Permission
         $user = new User;
         $role = new Role;
@@ -127,11 +113,7 @@ class AdminController extends Controller
         return redirect('app/user/list');        
     }
 
-    /*
-     *
-     * Delete User from Database
-     *
-     * */
+   
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -141,11 +123,7 @@ class AdminController extends Controller
         return redirect()->to('app/user/list');
     }
 
-    /*
-     *
-     * Update User
-     *
-     * */
+
     public function update($id, Request $request){
 
         $user = User::findOrFail($id);
@@ -160,16 +138,12 @@ class AdminController extends Controller
         return redirect('app/user/list');
     }
 
-
-    /*
-    public function addAdminUser(Request $request){
-        
+    public function returnUserList(){
+        $allPatients = User::all();
+        $arrayOfPatients = array_pluck($allPatients, 'name');
+        $listOfPatients = join(',', $arrayOfPatients);
+        return $listOfPatients;
     }
-
-    public function  showAdmin(){
-        return view('pages.add_admin');
-    }
-    */
 
 
 

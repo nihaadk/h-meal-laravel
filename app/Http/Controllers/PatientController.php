@@ -11,11 +11,7 @@ use DB;
 
 class PatientController extends Controller
 {
-    /*
-     *
-     * List of all Patients
-     *
-     * */
+    
     public function index(Request $request)
     {
 
@@ -33,10 +29,10 @@ class PatientController extends Controller
                     // Search with antribut First_name
                     $patients = DB::table('patients')->where('zzzs_number', $query)->get();
                 }
-                return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage]);
+                return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage, 'list' => $this->returnPatietList()]);
             } else {
                 $patients = Patient::all();
-                return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage]);
+                return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage, 'list' => $this->returnPatietList()]);
             }
 
         } else {
@@ -45,10 +41,7 @@ class PatientController extends Controller
 
     }
 
-    /*
-     * Check exists patient
-     *
-     * */
+    
     public function existsPatient( $newZZZSst ){
 
         $allPatients =Patient::all();
@@ -63,15 +56,6 @@ class PatientController extends Controller
         return null;
     }
 
-
-
-
-
-    /*
-     *
-     * Add new Patient
-     *
-     * */
     public function store(Request $request)
     {
 
@@ -96,28 +80,19 @@ class PatientController extends Controller
         //return redirect('app/patient/list');
     }
 
-    /*
-     *
-     * Update Patient
-     *
-     * */
     public function update($id, Request $request)
     {
         $patient = Patient::findOrFail($id);
         $patient->last_name = $request->last_name;
         $patient->first_name = $request->first_name;
         $patient->address = $request->address;
+        $patient->zzzs_number = $request->zzzs_number;
         $patient->date = $this->changeDataFormat($request->date);
         $patient->save();
 
         return redirect('app/patient/list');
     }
 
-    /*
-     *
-     * Delete Patient
-     *
-     * */
     public function destroy($id)
     {
         $patient = Patient::findOrFail($id);
@@ -126,14 +101,6 @@ class PatientController extends Controller
         return redirect()->to('app/patient/list');
     }
 
-    
-
-
-    /*
-     *
-     * Methods
-     *
-     * */
     public function changeDataFormat($date){
 
         $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July ', 'August', 'September', 'October', 'November', 'December');
@@ -150,6 +117,13 @@ class PatientController extends Controller
         }
 
         return null;
+    }
+
+    public function returnPatietList(){
+        $allPatients = Patient::all();
+        $arrayOfPatients = array_pluck($allPatients, 'zzzs_number');
+        $listOfPatients = join(',', $arrayOfPatients);
+        return $listOfPatients;
     }
 
 

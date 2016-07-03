@@ -243,22 +243,22 @@
 
             <div class="input-field col 12">
                {!! FORM::input('number','fat',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('fat', 'Maščoba \100ml:') !!}
+                {!! FORM::label('fat', 'Maščoba :') !!}
             </div>
 
             <div class="input-field col 12">
                {!! FORM::input('number','protein',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('protein', 'Beljankovine \100ml:') !!}
+                {!! FORM::label('protein', 'Beljankovine:') !!}
             </div>
 
             <div class="input-field col 12">
                {!! FORM::input('number','calories',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('calories', 'Kalorije \100ml:') !!}
+                {!! FORM::label('calories', 'Kalorije :') !!}
             </div>
 
             <div class="input-field col 12">
                {!! FORM::input('number','carbohydrates',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('carbohydrates', 'Oglj.hidrati \100ml:') !!}
+                {!! FORM::label('carbohydrates', 'Oglj.hidrati:') !!}
             </div>
         </div>
         <div class="modal-footer">

@@ -9,7 +9,12 @@
 		<div class="col s4 pull-s7">
 			<div class="input-field">
 				{!! FORM::open(['method' => 'GET']) !!}
-				{!! FORM::input('search','search', null, ['placeholder' => 'Vpiši ZZZS številko ']) !!}
+				{!! FORM::input('search','search', null, 
+				   ['data-list' => $list,
+              		'data-minchars' => '2',
+              		'class' => 'awesomplete',
+              		'placeholder' => 'Iskanje, vpiši ZZZS številko']) 
+              	!!}
 				{!! FORM::close() !!}
 			</div>
 		</div>
@@ -94,6 +99,10 @@
 						<div class="input-field col 12">
 							{!! FORM::text('first_name',null) !!}
 							{!! FORM::label('first_name', 'Ime:') !!}
+						</div>
+						<div class="input-field col 12">
+							{!! FORM::text('zzzs_number',null) !!}
+							{!! FORM::label('zzzs_number', 'ZZZS številka:') !!}
 						</div>
 						<div class="input-field col 12">
 							{!! FORM::text('last_name',null) !!}

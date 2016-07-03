@@ -13,45 +13,31 @@ use DB;
 class FoodController extends Controller
 {
 
-    /*
-      *
-      * Load Food list
-      *
-      * */
     public function index(Request $request)
     {
         if(Auth::check())
         {
             $query = $request->search;
-
-            if($query){
-
-                $foods = DB::table('foods')->where('titel', $query)->get();
-
-                return view('pages.food',['Foods' => $foods]);
-
-
+            if($query)
+            {
+                $foods = DB::table('foods')->where('food_code', $query)->get();
+                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList()]);
             }else{
                 $foods = Food::all();
-                return view('pages.food',['Foods' => $foods]);
+                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList()]);
             }
-
-
-        }else{
+        }
+        else
+        {
             return redirect()->to('/');
         }
     }
 
-    /*
-      *
-      * Save new Food
-      *
-      * */
+   
+  
     public function store(Request $request)
     {
         $food = new Food();
-
-        $food->food_code = $request->food_code;
         $food->title = $request->title;
         $food->fat = $request->fat;
         $food->protein = $request->protein;
@@ -60,17 +46,14 @@ class FoodController extends Controller
         $food->food_type = $request->food_type;
         $food->quantity = $request->quantity;
 
+        $food->food_code = $this->makeFoodCode($request);
 
         $food->save();
 
         return redirect('app/food/list');
     }
 
-    /*
-      *
-      * Delete Food
-      *
-      * */
+   
     public function destroy($id)
     {
         $food = Food::findOrFail($id);
@@ -79,11 +62,6 @@ class FoodController extends Controller
         return redirect()->to('app/food/list');
     }
 
-    /*
-      *
-      * Update Food
-      *
-      * */
     public function update($id, Request $request)
     {
 
@@ -95,21 +73,18 @@ class FoodController extends Controller
         $food->protein = $request->protein;
         $food->calories = $request->calories;
         $food->carbohydrates = $request->carbohydrates;
-        $food->food_type = $request->food_type;
-        dd($request->food_type);
+        //$food->food_type = $request->food_type;
         $food->quantity = $request->quantity;
+
+
 
         $food->save();
 
         return redirect('app/food/list');
     }
 
-    /*
-      *
-      * Update Food quantity
-      *
-      * */
-    public function upQuantity($id){
+    public function upQuantity($id)
+    {
 
         $food = Food::findOrFail($id);
         $q = $food->quantity;
@@ -119,6 +94,58 @@ class FoodController extends Controller
 
         return redirect()->to('app/food/list');
     }
+
+    public function floatToDigit( $var){
+      $const = 10;
+      $fvar = (float) $var; // 2.2 
+      $ivar = (int) $var;  // 2
+      $dec = $fvar - $ivar; // 0,2
+      return $ivar.($dec*$const); // 2 + 0,2*10
+    }
+
+    public function converTo3Dig( $var ){
+        
+        if( (int)($var/10) != 0  && (int)($var/10) < 10 ){
+          $left = $this->floatToDigit($var);  
+          return $left;
+        }
+        else if( (int)($var/100) != 0 ){
+          return $var;   
+        }
+        else {
+          $left = $this->floatToDigit($var);  
+          return '0'.$left;
+        }
+    }
+    
+
+    public function makeFoodCode( $req )
+    {
+      $fat = $this->converTo3Dig($req->fat);
+      $protein = $this->converTo3Dig($req->protein);
+      $calories = $this->converTo3Dig($req->calories);
+      $carbo = $this->converTo3Dig($req->carbohydrates);
+
+      if($req->food_type == 'Intravenozno'){
+        $type = 1;
+      }else {
+        $type = 0;
+      }
+
+      $code = $this->converTo3Dig($req->food_code);
+
+      $r = $type.''.$code.''.$fat.''.$protein.''.$carbo.''.$calories;
+      //dd($r); 
+      return $r;         
+    }
+
+     public function returnFoodList(){
+        $allPatients = Food::all();
+        $arrayOfPatients = array_pluck($allPatients, 'food_code');
+        $listOfPatients = join(',', $arrayOfPatients);
+        return $listOfPatients;
+    }
+
 
 
 

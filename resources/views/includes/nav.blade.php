@@ -9,7 +9,9 @@
     <a href="/app" class="brand-logo">
       <img src="../../../img/logo_white.png" class="logo_header_size_min">
     </a>
+   
     <ul class="right hide-on-med-and-down">
+      <li class="deep-purple lighten-1" style="padding: 15px 30px;"><large>{{ Auth::user()->name }}</large></li>
       @can('admin')
         <li>
           <a  href="/app/user/list">Admin<i class="fa fa-lock material-icons right"></i></a>
@@ -28,7 +30,8 @@
       </li>
 
       <li>
-        <a class="dropdown-button" href="#" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">perm_identity</i></a>
+        <a href="/auth/logout">Logout<i class="fa fa-sign-out material-icons right" ></i></a>
+        <!-- <a class="dropdown-button" href="#" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">perm_identity</i></a> -->
       </li>
     </ul>
   </div>
