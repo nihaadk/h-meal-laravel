@@ -289,7 +289,7 @@
                 {!! FORM::label('number_of_visits', 'Število obiska:') !!}
             </div>
             <div class="input-field col 12">
-                {!! FORM::input('number','measurement',null, array('min'=>'0','max'=>'9999')) !!}
+                {!! FORM::input('number','measurement',null, array('min'=>'0','step' => '0.1','max'=>'7')) !!}
                 {!! FORM::label('measurement', 'Meritev (mmol/l):') !!}
             </div>
         </div>
