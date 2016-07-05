@@ -21,7 +21,7 @@
             {!! FORM::select('tabela', array('Dnevni vnosi' => 'Dnevni vnosi', 'Izmjereni sladkor' => 'Izmjereni sladkor'), $lastSelectTabel) !!}
           </div>
           <div class="col s3">
-            <!-- {!! FORM::submit('Prikaži', ['class' => 'btn btn-primary purple darken-4']) !!} -->
+             {!! FORM::submit('Prikaži', ['class' => 'btn btn-primary purple darken-4']) !!}
           </div>
         </div>
         {!! Form::close() !!}

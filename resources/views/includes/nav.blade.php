@@ -9,7 +9,7 @@
     <a href="/app" class="brand-logo">
       <img src="../../../img/logo_white.png" class="logo_header_size_min">
     </a>
-   
+    
     <ul class="right hide-on-med-and-down">
       <li class="deep-purple lighten-1" style="padding: 15px 30px;"><large>{{ Auth::user()->name }}</large></li>
       @can('admin')
