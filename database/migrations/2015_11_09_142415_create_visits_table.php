@@ -18,12 +18,12 @@ class CreateVisitsTable extends Migration
             $table->increments('id');
             $table->integer('patient_id');
             $table->integer('number_of_visits');
-            $table->date('stard_date_of_hosp');
-            $table->date('end_date_of_hosp');
+            $table->date('stard_date');
+            $table->date('end_date');
             $table->double('section_code');
             $table->double('height');
-            $table->double('weight');
-            $table->double('ideal_weight');
+            $table->double('heaviness');
+            $table->double('ideal_heaviness');
             $table->string('nutritive_needs');
             $table->timestamps();
         });

@@ -25,7 +25,9 @@ class CreateFoodTable extends Migration
         {
             $table->increments('id');
             $table->string('food_code');
+            $table->string('food_type');
             $table->string('title');
+            $table->integer('quantity');
             $table->double('protein');
             $table->double('calories');
             $table->double('carbohydrates');

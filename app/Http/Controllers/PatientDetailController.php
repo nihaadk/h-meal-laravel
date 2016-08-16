@@ -148,7 +148,7 @@ class PatientDetailController extends Controller
 
             if(strpos($rdate, $months[$i])){
                 $cdate = str_replace($months[$i],($i+1),$rdate);
-                return date('d-m-Y', strtotime($cdate));
+                return date('Y-m-d', strtotime($cdate));
                 // dan-mesec-leto
             }
         }

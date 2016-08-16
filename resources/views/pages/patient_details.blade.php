@@ -37,7 +37,7 @@
                         <td>{{ $dv->carbohydrates }}</td>
                         @can('admin')
                             <td class="td-icon">
-                                <a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$dv->id }}"  data-method="delete">
+                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$dv->id }}"  data-method="delete">
                                     <i class="material-icons  red darken-1">delete</i>
                                 </a>
                             </td>
@@ -95,10 +95,16 @@
                         <tr>
                             <td>{{ $ms->date_of_measurement }}</td>
                             <td>{{ $ms->number_of_visits }}</td>
-                            <td>{{ $ms->measurement  }}</td>
+                            <td>
+                                @if($ms->measurement >= 11)
+                                    <b class="red-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sladkorno bolezen">{{ $ms->measurement }}<b>
+                                @else 
+                                    {{ $ms->measurement }}
+                                @endif
+                            </td>
                             @can('admin')
                                 <td class="td-icon">
-                                    <a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$ms->id }}"  data-method="delete">
+                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$ms->id }}"  data-method="delete">
                                         <i class="material-icons  red darken-1">delete</i>
                                     </a>
                                 </td>
@@ -170,7 +176,7 @@
                             <td>{{ $v->nutritive_needs }}</td>
                             @can('admin')
                                 <td class="td-icon">
-                                    <a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$v->id }}"  data-method="delete">
+                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$v->id }}"  data-method="delete">
                                         <i class="material-icons  red darken-1">delete</i>
                                     </a>
                                 </td>
@@ -275,8 +281,6 @@
             'url' => ['app/patient/store_m_sugar', $Patient->id]
            ])
 		!!}
-
-        {!! Form::close() !!}
         
         <div class="modal-content">
             <div class="input-field col 12">
@@ -289,12 +293,12 @@
                 {!! FORM::label('number_of_visits', 'Število obiska:') !!}
             </div>
             <div class="input-field col 12">
-                {!! FORM::input('number','measurement',null, array('min'=>'0','step' => '0.1','max'=>'7')) !!}
+                {!! FORM::input('number','measurement',null, array('min'=>'1','step' => '0.1','max'=>'30')) !!}
                 {!! FORM::label('measurement', 'Meritev (mmol/l):') !!}
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3 " style="margin-left: 10px;">Cancel</a>
             {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}

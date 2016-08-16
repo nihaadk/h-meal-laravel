@@ -55,6 +55,8 @@
 
      if(charVersion == 1){
 
+      console.log({!! json_encode($ydata) !!});
+
       var myChart = new Chart(ctx, {
         type: {!! json_encode($chart) !!},
         data: {

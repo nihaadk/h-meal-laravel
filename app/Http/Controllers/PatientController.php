@@ -75,7 +75,7 @@ class PatientController extends Controller
         }
 
         $patients = Patient::all();
-        return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage]);
+        return view('pages.patient', ['Patients' => $patients, 'ErrorMessage' => $errorMessage, 'list' => $this->returnPatietList()]);
 
         //return redirect('app/patient/list');
     }
@@ -101,9 +101,10 @@ class PatientController extends Controller
         return redirect()->to('app/patient/list');
     }
 
+    // Method for change the data format
     public function changeDataFormat($date){
 
-        $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July ', 'August', 'September', 'October', 'November', 'December');
+        $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
         $rdate = str_replace(',','',$date);
         $rdate = str_replace(' ','-',$rdate);
 

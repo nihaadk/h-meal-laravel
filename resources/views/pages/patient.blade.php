@@ -13,7 +13,7 @@
 				   ['data-list' => $list,
               		'data-minchars' => '2',
               		'class' => 'awesomplete',
-              		'placeholder' => 'Iskanje, vpiši ZZZS številko']) 
+              		'placeholder' => 'Vpiši ZZZS številko']) 
               	!!}
 				{!! FORM::close() !!}
 			</div>
@@ -52,19 +52,19 @@
 					<td>{{ $patient->zzzs_number }}</td>
 
 					<td class="td-icon">
-						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanj bolnika" href="#{{ 'editmodel'.$patient->id }}" >
+						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanj" href="#{{ 'editmodel'.$patient->id }}" >
 							<i class="material-icons green darken-3">mode_edit</i>
 						</a>
 					</td>
 					@can('admin')
 					<td class="td-icon">
-						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Briši bolnika" href="#{{ 'deletemodel'.$patient->id }}"  data-method="delete">
+						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$patient->id }}"  data-method="delete">
 							<i class="material-icons red darken-1">delete</i>
 						</a>
 					</td>
 					@endcan
 					<td class="td-icon">
-						<a class="btn-floating tooltipped" data-position="top" data-delay="50" data-tooltip="Tabela bolnika" href="{{ '/app/patient/detail/'.$patient->id }}">
+						<a class="btn-floating tooltipped" data-position="top" data-delay="50" data-tooltip="Tabele vnosa" href="{{ '/app/patient/detail/'.$patient->id }}">
 							<i class="material-icons blue darken-2">list</i>
 						</a>
 					</td>

@@ -6,7 +6,10 @@ Route::get('/', 'Auth\AuthController@getLogin');
 Route::group(['middleware' => 'auth'], function () 
 {
 	// Index Welcome
-	Route::get('app', 'AdminController@index');
+	Route::get('app', 'TaskController@index');
+	Route::post('app/task/create', 'TaskController@create');
+	Route::delete('app/task/delete/{id}','TaskController@destroy' );
+	Route::put('app/task/update/{id}', 'TaskController@update');
 	
 	// Chart 
 	Route::get('app/chart/index', 'ChartController@index');

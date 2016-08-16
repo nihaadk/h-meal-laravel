@@ -15,7 +15,7 @@
 				   ['data-list' => $list,
               		'data-minchars' => '2',
               		'class' => 'awesomplete',
-              		'placeholder' => 'Iskanje, vpiši kodo hrane']) 
+              		'placeholder' => 'Iskanje ...']) 
               	!!}
 				{!! FORM::close() !!}
 			</div>
@@ -42,12 +42,12 @@
 
 
 					<td class="td-icon">
-						<a class="btn-floating modal-trigger" href="#{{ 'editmodel'.$user->id }}" >
+						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanj" href="#{{ 'editmodel'.$user->id }}" >
 							<i class="material-icons  green darken-3">mode_edit</i>
 						</a>
 					</td>
 					<td class="td-icon">
-						<a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$user->id }}"  data-method="delete">
+						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$user->id }}"  data-method="delete">
 							<i class="material-icons  red darken-1">delete</i>
 						</a>
 					</td>

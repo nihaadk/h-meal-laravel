@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMeasuredSugarsTable extends Migration
+class Tasks extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,13 @@ class CreateMeasuredSugarsTable extends Migration
      */
     public function up()
     {
-        // izmerjen sladkorja
-        Schema::create('measured_sugars', function(Blueprint $table)
+        Schema::create('tasks', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('patient_id');
-            $table->integer('number_of_visits');
-            $table->date('date_of_measurement');
-            $table->double('measurement', 15,3);
+            $table->string('author');
+            $table->string('description');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -32,6 +28,6 @@ class CreateMeasuredSugarsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('measured_sugars');
+        Schema::drop('tasks');
     }
 }
