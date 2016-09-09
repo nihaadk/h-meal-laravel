@@ -4,48 +4,51 @@
   <div class="section">
     <div class="row">
     	<div class="col s12 push-s5">
-			<h2 class="deep-purple-text">Komentari</h2>
+			<h2 class="deep-purple-text">Komentarji:</h2>
 		</div>
         @if(count($tasks) == 0)
         <div class="col s12"> 
            <div class="card-panel">
-               <h5 class="deep-purple-text center">Ni nobenga komentarja, vpišite nove komentar.</h5>
+               <h5 class="deep-purple-text center">Ni nobenga komentarija.</h5>
             </div>
         </div>
         @else
-            @foreach( $tasks as $task)
-                <div class="col s6">  
-                    <div class="card white-grey">
-                        <div class="card-content black-text">
-                          <span class="card-title deep-purple-text">
-                            {{ $task->author }}
-                          </span>
-                          <p>{{ $task->description }}</p>
-                          <p class="blue-text text-darken-2" style="margin-top: 5%;">{{ $task->created_at }}</p>
-                            <a 
-                                class="btn-floating modal-trigger tooltipped right" 
-                                data-position="top" 
-                                data-delay="50" 
-                                data-tooltip="Brisanje" 
-                                href="#{{ 'deletemodel'.$task->id }}"  
-                                data-method="delete" 
-                                style="bottom: 20px; margin-right: 5px;">
-                                <i class="material-icons red darken-1">delete</i>
-                            </a>
+             <div class="col s12">
+                <ul class="collapsible popout" data-collapsible="accordion">
+                @foreach( $tasks as $task)
+                    <li>
+                      <div class="collapsible-header">
+                      <i class="material-icons blue-grey-text lighten-4">comment</i>
+                      <b class="deep-purple-text darken-3">{{ $task->author }}</b>
+                      <a 
+                        class="modal-trigger tooltipped secondary-content" 
+                        data-position="right" 
+                        data-delay="50" 
+                        data-tooltip="Urejanje" 
+                        href="#{{ 'editmodel'.$task->id }}"  
+                        data-method="delete" 
+                        style="bottom: 20px; margin-right: 5px;">
+                        <i class="material-icons blue-grey-text lighten-4">edit</i>
+                      </a>
 
-                            <a 
-                                class="btn-floating modal-trigger tooltipped right" 
-                                data-position="top" 
-                                data-delay="50" 
-                                data-tooltip="Urejanje" 
-                                href="#{{ 'editmodel'.$task->id }}"  
-                                data-method="delete" 
-                                style="bottom: 20px; margin-right: 5px;">
-                                <i class="material-icons green darken-1">edit</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                      <a 
+                        class="modal-trigger tooltipped secondary-content"
+                        data-position="left" 
+                        data-delay="50" 
+                        data-tooltip="Brisanje" 
+                        href="#{{ 'deletemodel'.$task->id }}"  
+                        data-method="delete" 
+                        style="bottom: 20px; margin-right: 5px;">
+                        <i class="material-icons blue-grey-text lighten-4">delete</i>
+                      </a>
+                      </div>
+                      <div class="collapsible-body">
+                        <p>{{ $task->description }}</p>
+                        <p class="indigo-text lighten-2">{{ $task->created_at }}</p>
+                      </div>
+                    </li>
+                  
+               
                 
                 <!-- Delete Patient Model-->
                 <div id="{{ 'deletemodel'.$task->id }}" class="modal">
@@ -90,19 +93,36 @@
                 </div>
 
             @endforeach
+            </ul>
+                </div>
         @endif
     </div>
 
-    <!-- Add Task Button-->
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a href="#modal_add" 
-            class="btn-floating btn-large tooltipped waves-effect waves-light purple darken-4 modal-trigger "
+    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large purple darken-4">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+        <li>
+            <a href="#modal_filter" 
+            class="btn-floating btn-large tooltipped waves-effect waves-light deep-purple accent-2 modal-trigger "
             data-position="left" 
             data-delay="50"
-            data-tooltip="Dodaj novega Bolnika">
+            data-tooltip="Filter">
+            <i class="material-icons">search</i>
+            </a>  
+        </li>
+        <li>
+            <a href="#modal_add" 
+            class="btn-floating btn-large tooltipped waves-effect waves-light deep-purple accent-3 modal-trigger "
+            data-position="left" 
+            data-delay="50"
+            data-tooltip="Novi komentar">
             <i class="material-icons">add</i>
-        </a>      
-    </div>
+            </a>  
+        </li>
+    </ul>
+  </div>
 
     <!-- Add Task Model-->
     <div id="modal_add" class="modal modal-fixed-footer">
@@ -120,6 +140,30 @@
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
             {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+        </div>
+        {!! FORM::close() !!}
+    </div>
+
+    <!-- Filter Task Model-->
+    <div id="modal_filter" class="modal modal-fixed-footer">
+            {!! FORM::open(['url' => 'app/task/filter']) !!}
+        <div class="modal-content">
+            <div class="input-field col 12">
+                {!! FORM::select('user_id', $userList) !!}
+                {!! FORM::label('user', 'Uporabnik:') !!}
+            </div>
+            <div class="input-field col 12">
+            {!! FORM::text('from_date', null ,array('class' => 'datepicker')) !!}
+                {!! FORM::label('user', 'Od:') !!}
+            </div>
+            <div class="input-field col 12">
+            {!! FORM::text('to_date', null ,array('class' => 'datepicker')) !!}
+                {!! FORM::label('user', 'Do:') !!}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
+            {!! FORM::submit('', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>

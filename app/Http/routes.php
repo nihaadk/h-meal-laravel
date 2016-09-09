@@ -8,6 +8,7 @@ Route::group(['middleware' => 'auth'], function ()
 	// Index Welcome
 	Route::get('app', 'TaskController@index');
 	Route::post('app/task/create', 'TaskController@create');
+	Route::post('app/task/filter', 'TaskController@filter');
 	Route::delete('app/task/delete/{id}','TaskController@destroy' );
 	Route::put('app/task/update/{id}', 'TaskController@update');
 	
