@@ -163,7 +163,7 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
-            {!! FORM::submit('', ['class' => 'btn btn-primary green darken-3']) !!}
+            {!! FORM::submit('Potrdi', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>
