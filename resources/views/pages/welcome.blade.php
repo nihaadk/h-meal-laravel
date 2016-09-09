@@ -109,7 +109,7 @@
             data-position="left" 
             data-delay="50"
             data-tooltip="Filter">
-            <i class="material-icons">search</i>
+            <i class="fa fa-filter" aria-hidden="true"></i>
             </a>  
         </li>
         <li>
