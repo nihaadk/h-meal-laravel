@@ -104,7 +104,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Preklic</a>
+						<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
 
 						{!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
 					</div>
@@ -169,7 +169,7 @@
 			</div>
 	    </div>
 	    <div class="modal-footer">
-			<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Preklic</a>
+			<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
 			{!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
 	    </div>
 	{!! FORM::close() !!}

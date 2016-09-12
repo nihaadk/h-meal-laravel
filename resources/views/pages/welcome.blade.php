@@ -60,7 +60,7 @@
                             href="#!" 
                             class=" modal-action modal-close waves-effect btn purple darken-3" 
                             style="margin-left: 10px;">
-                            Preklic
+                            Prekliči
                         </a>
                         {!! FORM::open([
                             'method' => 'DELETE',
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Preklic</a>
+                        <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
 
                         {!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
                     </div>
@@ -138,16 +138,20 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
-            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+            {!! FORM::submit('SHRANI', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>
 
     <!-- Filter Task Model-->
     <div id="modal_filter" class="modal modal-fixed-footer">
-            {!! FORM::open(['url' => 'app/task/filter']) !!}
+            {!! FORM::open(['url' => 'app/task/filter','class' => 'filterForm']) !!}
         <div class="modal-content">
+            <div class="col 12">
+                <center><h4 class="deep-purple-text">Potrebno je vse podatke vnesiti</h4></center>
+                <br>
+            </div>
             <div class="input-field col 12">
                 {!! FORM::select('user_id', $userList) !!}
                 {!! FORM::label('user', 'Uporabnik:') !!}
@@ -162,11 +166,17 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
+            <a href="#!" class="modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
             {!! FORM::submit('Potrdi', ['class' => 'btn btn-primary green darken-3']) !!}
+            <input type="button" onclick="reset()" value="Reset" class="btn btn-primary deep-purple" style="margin-right: 320px;">
         </div>
         {!! FORM::close() !!}
     </div>
+    <script>
+        function reset() {
+           $('.filterForm')[0].reset();
+        }
+    </script>
 
   </div>
 </div>

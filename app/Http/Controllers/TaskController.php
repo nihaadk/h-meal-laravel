@@ -88,13 +88,19 @@ class TaskController extends Controller
                         $filterTasks->push($t);
                 }
             }
-
+            // ce filter nenajde nic 
+            //dd($filterTasks);
             if( $filterTasks != null){
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('tasks', $filterTasks);
             }
 
+            return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('tasks', $tasks);
+        } else {
+            // ce nepodas pravilne podatke
             return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('tasks', $tasks);

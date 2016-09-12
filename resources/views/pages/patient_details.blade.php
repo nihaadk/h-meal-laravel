@@ -52,7 +52,7 @@
                         </div>
                         <div class="modal-footer">
 
-                            <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Preklic</a>
+                            <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
 
                             {!! FORM::open([
                                 'method' => 'DELETE',
@@ -119,7 +119,7 @@
                             </div>
                             <div class="modal-footer">
 
-                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Preklic</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
 
                                 {!! FORM::open([
                                     'method' => 'DELETE',
@@ -190,7 +190,7 @@
                             </div>
                             <div class="modal-footer">
 
-                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Preklic</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
 
                                 {!! FORM::open([
                                     'method' => 'DELETE',
