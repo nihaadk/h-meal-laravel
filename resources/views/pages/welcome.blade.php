@@ -44,7 +44,14 @@
                       </div>
                       <div class="collapsible-body">
                         <p>{{ $task->description }}</p>
-                        <p class="indigo-text lighten-2">{{ $task->created_at }}</p>
+                            <p  class="indigo-text lighten-2 left-align" 
+                                style="padding: 0; margin-top: 1px; margin-left: 1%;">
+                                <b>Datum:</b> {{ $task->created_at->format('d.m.Y') }}
+                            </p>
+                            <p  class="indigo-text lighten-2 left-align"
+                                style="padding: 0; margin-bottom: 3px; margin-left: 1%; margin-top: 4px;">
+                                <b>Bolnik:</b> {{ $task->patient->first_name }} {{ $task->patient->last_name }} 
+                            </p>
                       </div>
                     </li>
                   
@@ -129,8 +136,8 @@
             {!! FORM::open(['url' => 'app/task/create']) !!}
         <div class="modal-content">
             <div class="input-field col 12">
-                {!! FORM::select('user_id', $userList) !!}
-                {!! FORM::label('user', 'Uporabnik:') !!}
+                {!! FORM::select('patient_id', $patientList) !!}
+                {!! FORM::label('patient', 'Bolnik:') !!}
             </div>
             <div class="input-field col 12">
                 {!! FORM::textarea('description', null, ['class' => 'materialize-textarea', 'size' => '10x5']) !!}
@@ -148,13 +155,13 @@
     <div id="modal_filter" class="modal modal-fixed-footer">
             {!! FORM::open(['url' => 'app/task/filter','class' => 'filterForm']) !!}
         <div class="modal-content">
-            <div class="col 12">
-                <center><h4 class="deep-purple-text">Potrebno je vse podatke vnesiti</h4></center>
-                <br>
+            <div class="input-field col 12">
+                {!! FORM::select('user_id',$userList) !!}
+                {!! FORM::label('user', 'Uporabnik:') !!}
             </div>
             <div class="input-field col 12">
-                {!! FORM::select('user_id', $userList) !!}
-                {!! FORM::label('user', 'Uporabnik:') !!}
+                {!! FORM::select('patient_id',$patientList) !!}
+                {!! FORM::label('patient', 'Bolnik:') !!}
             </div>
             <div class="input-field col 12">
             {!! FORM::text('from_date', null ,array('class' => 'datepicker')) !!}

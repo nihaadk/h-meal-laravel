@@ -8,19 +8,22 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Task;
 use App\User;
+use App\Patient;
 
 class TaskController extends Controller
 {
     public function index(){
 
         $tasks = Task::all();
-        $userList = User::lists('name', 'id');
+        $userList = [''=>''] + User::lists('name', 'id')->all();
+        $patientList = [''=>''] + Patient::lists('last_name', 'id')->all();
 
         return view('pages.welcome')
+            ->with('patientList', $patientList)
             ->with('userList', $userList)
             ->with('tasks', $tasks);
     }
-    
+
     public function create(Request $request)
     {
         $task = new Task();
@@ -65,18 +68,114 @@ class TaskController extends Controller
         return false;
     }
 
+    public function numberOfFilterAntributs($to, $from, $p_id, $a_name){
+
+        // bolnik
+        if($p_id != null && $to == null && $from == null && $a_name == null){
+            return '1';
+        }
+
+        // author
+        if($p_id == "" && $to == null && $from == null && $a_name != null){
+            return '2';
+        }
+
+        // date
+        if($p_id == "" && $to != null && $from != null && $a_name == null){
+            return '3';
+        }
+
+        // bolnik in author
+        if($p_id != "" && $to == null && $from == null && $a_name != null){
+            return '4';
+        }
+
+        // bolnik in date 
+        if($p_id != "" && $to != null && $from != null && $a_name == null){
+            return '5';
+        }
+
+        // author in date
+        if($p_id == "" && $to != null && $from != null && $a_name != null){
+            return '6';
+        }
+
+        return '0';
+    }
 
     public function filter(Request $request){
 
         // from database
         $userList = User::lists('name', 'id');
         $tasks = Task::all();
+        $patients = Patient::all();
 
         // from request
         $to = $this->changeDataFormat($request->to_date);
         $from = $this->changeDataFormat($request->from_date);
-        $user = User::find($request->user_id);
-        $author = $user->name;
+        $patient_id = $request->patient_id;
+        $author = User::find($request->user_id);
+
+        $filterTasks = collect([]);
+        $combination = $this->numberOfFilterAntributs($to, $from, $patient_id, $author);
+
+
+        switch ($combination) {
+            case '0':
+                // no filter
+                dd("DAS IST NULL");
+                break;
+            case '1':
+                // bolnik
+                foreach ($tasks as $t) {  
+                    if( $t->patient_id == $patient_id){
+                            $filterTasks->push($t);
+                    }
+                }
+                break;
+            case '2':
+                // author
+                foreach ($tasks as $t) {  
+                    if( $t->author == $author->name){
+                            $filterTasks->push($t);
+                    }
+                }
+                break;
+            case '3':
+                // date
+                foreach ($tasks as $t) {  
+                    if( $this->dateFilter($t->created_at->format('Y-m-d'),$from,$to)){
+                            $filterTasks->push($t);
+                    }
+                }
+                break;
+            case '4':
+                // bolnik author
+                foreach ($tasks as $t) {  
+                    if( $t->author == $author->name && $t->patient_id == $patient_id){
+                            $filterTasks->push($t);
+                    }
+                }
+                break;
+            case '5':
+                // bolnik date
+                foreach ($tasks as $t) {  
+                    if( $t->patient_id == $patient_id && $this->dateFilter($t->created_at->format('Y-m-d'),$from,$to)){
+                            $filterTasks->push($t);
+                    }
+                }
+                break;
+            case '6':
+                // author date
+                foreach ($tasks as $t) {  
+                    if( $t->author == $author->name && $this->dateFilter($t->created_at->format('Y-m-d'),$from,$to)){
+                            $filterTasks->push($t);
+                    }
+                }
+                break;
+        }
+
+
 
         if( $to != null && $from != null && $author != null ){
 

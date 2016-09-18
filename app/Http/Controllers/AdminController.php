@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use App\Task;
 use App\Permission;
 use Validator;
 use App\Http\Requests;
@@ -116,7 +117,14 @@ class AdminController extends Controller
    
     public function destroy($id)
     {
+        $tasks = Task::all();
         $user = User::findOrFail($id);
+        
+        foreach ($tasks as $task) {
+            if($user->name == $task->author){
+                $task->delete();
+            }
+        }
 
         $user->delete();
 
