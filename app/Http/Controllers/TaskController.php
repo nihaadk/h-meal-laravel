@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Task;
 use App\User;
 use App\Patient;
+use Auth;
 
 class TaskController extends Controller
 {
@@ -17,6 +18,8 @@ class TaskController extends Controller
         $tasks = Task::all();
         $userList = [''=>''] + User::lists('name', 'id')->all();
         $patientList = [''=>''] + Patient::lists('last_name', 'id')->all();
+
+
 
         return view('pages.welcome')
             ->with('patientList', $patientList)
@@ -28,8 +31,9 @@ class TaskController extends Controller
     {
         $task = new Task();
         
-        $author = User::find($request->user_id);
-        $task->author = $author->name;
+        $task->author = Auth::user()->name;
+        $task->patient_id = $request->patient_id;
+        $task->title = $request->title; 
         $task->description = $request->description;
         $task->created_at = $request->created_at;
         
@@ -50,6 +54,7 @@ class TaskController extends Controller
 
         $task = Task::findOrFail($id);
         $task->description = $request->description;
+        $task->author = Auth::user()->name;
         $task->save();
 
         return redirect()->back();
@@ -100,13 +105,18 @@ class TaskController extends Controller
             return '6';
         }
 
+        if($p_id != "" && $to != null && $from != null && $a_name != null){
+            return '7';
+        }
+
         return '0';
     }
 
     public function filter(Request $request){
 
         // from database
-        $userList = User::lists('name', 'id');
+        $userList = [''=>''] + User::lists('name', 'id')->all();
+        $patientList = [''=>''] + Patient::lists('last_name', 'id')->all();
         $tasks = Task::all();
         $patients = Patient::all();
 
@@ -116,14 +126,21 @@ class TaskController extends Controller
         $patient_id = $request->patient_id;
         $author = User::find($request->user_id);
 
+        //dd($to, $from, $patient_id, $author);
+
         $filterTasks = collect([]);
         $combination = $this->numberOfFilterAntributs($to, $from, $patient_id, $author);
 
+        //dd($this->numberOfFilterAntributs($to, $from, $patient_id, $author));
 
         switch ($combination) {
             case '0':
                 // no filter
-                dd("DAS IST NULL");
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $tasks);
+                
                 break;
             case '1':
                 // bolnik
@@ -132,6 +149,12 @@ class TaskController extends Controller
                             $filterTasks->push($t);
                     }
                 }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+
                 break;
             case '2':
                 // author
@@ -140,6 +163,12 @@ class TaskController extends Controller
                             $filterTasks->push($t);
                     }
                 }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+
                 break;
             case '3':
                 // date
@@ -148,6 +177,12 @@ class TaskController extends Controller
                             $filterTasks->push($t);
                     }
                 }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+                
                 break;
             case '4':
                 // bolnik author
@@ -156,6 +191,12 @@ class TaskController extends Controller
                             $filterTasks->push($t);
                     }
                 }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+                
                 break;
             case '5':
                 // bolnik date
@@ -164,6 +205,12 @@ class TaskController extends Controller
                             $filterTasks->push($t);
                     }
                 }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+                
                 break;
             case '6':
                 // author date
@@ -172,39 +219,32 @@ class TaskController extends Controller
                             $filterTasks->push($t);
                     }
                 }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+                break;
+
+                case '7':
+                // all
+                foreach ($tasks as $t) {  
+                    if( $t->patient_id == $patient_id && $t->author == $author->name && $this->dateFilter($t->created_at->format('Y-m-d'),$from,$to)){
+                            $filterTasks->push($t);
+                    }
+                }
+
+                return view('pages.welcome')
+                    ->with('userList', $userList)
+                    ->with('patientList', $patientList)
+                    ->with('tasks', $filterTasks);
+                    
                 break;
         }
 
-
-
-        if( $to != null && $from != null && $author != null ){
-
-            $filterTasks = collect([]);
-
-            foreach ($tasks as $t) {  
-                
-                if( $t->author == $author && $this->dateFilter($t->created_at->format('Y-m-d'),$from,$to)){
-                        $filterTasks->push($t);
-                }
-            }
-            // ce filter nenajde nic 
-            //dd($filterTasks);
-            if( $filterTasks != null){
-                return view('pages.welcome')
-                    ->with('userList', $userList)
-                    ->with('tasks', $filterTasks);
-            }
-
-            return view('pages.welcome')
-                    ->with('userList', $userList)
-                    ->with('tasks', $tasks);
-        } else {
-            // ce nepodas pravilne podatke
-            return view('pages.welcome')
-                    ->with('userList', $userList)
-                    ->with('tasks', $tasks);
-        }
     }
+
+
 
     // Method for change the data format
     public function changeDataFormat($date){

@@ -19,7 +19,7 @@
                     <li>
                       <div class="collapsible-header">
                       <i class="material-icons blue-grey-text lighten-4">comment</i>
-                      <b class="deep-purple-text darken-3">{{ $task->author }}</b>
+                      <b class="deep-purple-text darken-3">{{ $task->title }} ( {{ $task->patient->first_name }} {{ $task->patient->last_name }} )</b>
                       <a 
                         class="modal-trigger tooltipped secondary-content" 
                         data-position="right" 
@@ -44,11 +44,15 @@
                       </div>
                       <div class="collapsible-body">
                         <p>{{ $task->description }}</p>
-                            <p  class="indigo-text lighten-2 left-align" 
+                            <p  class="indigo-text lighten-3" 
                                 style="padding: 0; margin-top: 1px; margin-left: 1%;">
                                 <b>Datum:</b> {{ $task->created_at->format('d.m.Y') }}
                             </p>
-                            <p  class="indigo-text lighten-2 left-align"
+                            <p  class="indigo-text lighten-3" 
+                                style="padding: 0; margin-top: 1px; margin-left: 1%;">
+                                <b>Uporabnik:</b> {{ $task->author }}
+                            </p>
+                            <p  class="indigo-text lighten-3"
                                 style="padding: 0; margin-bottom: 3px; margin-left: 1%; margin-top: 4px;">
                                 <b>Bolnik:</b> {{ $task->patient->first_name }} {{ $task->patient->last_name }} 
                             </p>
@@ -140,6 +144,10 @@
                 {!! FORM::label('patient', 'Bolnik:') !!}
             </div>
             <div class="input-field col 12">
+                {!! FORM::text('title', null) !!}
+                {!! FORM::label('title', 'Naslov:') !!}
+            </div>
+            <div class="input-field col 12">
                 {!! FORM::textarea('description', null, ['class' => 'materialize-textarea', 'size' => '10x5']) !!}
                 {!! FORM::label('description', 'Komentar:') !!}
             </div>
@@ -173,9 +181,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+            <a href="#!" class="modal-action modal-close waves-effect btn red darken-3" style="margin-left: 20px;">Prekliči</a>
             {!! FORM::submit('Potrdi', ['class' => 'btn btn-primary green darken-3']) !!}
-            <input type="button" onclick="reset()" value="Reset" class="btn btn-primary deep-purple" style="margin-right: 320px;">
+            <input type="button" onclick="reset()" value="Reset" class="btn btn-primary deep-purple" style="margin-right: 20px;">
         </div>
         {!! FORM::close() !!}
     </div>
