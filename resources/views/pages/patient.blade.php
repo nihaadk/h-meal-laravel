@@ -171,8 +171,8 @@
 			</div>
 		</div>
 	    <div class="modal-footer">
-	    	<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
-	      	{!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+	    	<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+	      	{!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
 	    </div>
 		{!! FORM::close() !!}
 	</div>

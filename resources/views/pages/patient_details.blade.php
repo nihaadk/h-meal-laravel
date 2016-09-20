@@ -12,6 +12,14 @@
             </div>
             <div id="dnevniVnosi" class="col s12">
                 <br>
+                @if(count($Patient->getDayvisits) == 0)
+                    <div class="col s12"> 
+                       <div class="card-panel center">
+                           <h5 class="deep-purple-text">Ni nobenga vnosa.</h5>
+                           <a href="{{ redirect()->back() }}"><i class="large material-icons deep-purple-text">settings_backup_restore</i></a>
+                        </div>
+                    </div>
+                @else
                 <table class="centered">
                     <thead>
                     <tr>
@@ -26,43 +34,84 @@
                     </thead>
 
                     <tbody>
-                    @foreach ( $Patient->getDayvisits as $dv)
-                    <tr>
-                        <td>{{ $dv->date_of_visit }}</td>
-                        <td>{{ $dv->food_type }}</td>
-                        <td>{{ $dv->food_code }}</td>
-                        <td>{{ $dv->fat }}</td>
-                        <td>{{ $dv->protein }}</td>
-                        <td>{{ $dv->calories }}</td>
-                        <td>{{ $dv->carbohydrates }}</td>
-                        @can('admin')
+                        @foreach ( $Patient->getDayvisits as $dv)
+                        <tr>
+                            <td>{{ $dv->date_of_visit }}</td>
+                            <td>{{ $dv->food_type }}</td>
+                            <td>{{ $dv->food_code }}</td>
+                            <td>{{ $dv->fat }}</td>
+                            <td>{{ $dv->protein }}</td>
+                            <td>{{ $dv->calories }}</td>
+                            <td>{{ $dv->carbohydrates }}</td>
+                            @can('admin')
+                                <td class="td-icon">
+                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$dv->id }}"  data-method="delete">
+                                        <i class="material-icons  red darken-1">delete</i>
+                                    </a>
+                                </td>
+                            @endcan
+                            <!--
                             <td class="td-icon">
-                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$dv->id }}"  data-method="delete">
-                                    <i class="material-icons  red darken-1">delete</i>
+                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanj" href="#{{ 'editmodel'.$dv->id }}" >
+                                    <i class="material-icons  green darken-3">mode_edit</i>
                                 </a>
                             </td>
-                        @endcan
-                    </tr>
+                            -->
+                        </tr>
 
 
-                    <!-- Delete Day Visit-->
-                    <div id="{{ 'deletemodel'.$dv->id }}" class="modal bottom-sheet">
-                        <div class="modal-content">
-                            <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                        <!-- Delete Day Visit-->
+                        <div id="{{ 'deletemodel'.$dv->id }}" class="modal">
+                            <div class="modal-content">
+                                <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                            </div>
+                            <div class="modal-footer">
+
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
+
+                                {!! FORM::open([
+                                    'method' => 'DELETE',
+                                    'url' => ['app/patient/day_visit_delete', $dv->id]]) !!}
+                                {!! FORM::submit('Delete', ['class' => 'btn danger-3 red']) !!}
+                            </div>
+                            {!! FORM::close() !!}
                         </div>
-                        <div class="modal-footer">
 
-                            <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
+                        <!-- Edit User Model-->
+                            <div id="{{ 'editmodel'.$dv->id }}" class="modal modal-fixed-footer">
 
-                            {!! FORM::open([
-                                'method' => 'DELETE',
-                                'url' => ['app/patient/day_visit_delete', $dv->id]]) !!}
-                            {!! FORM::submit('Delete', ['class' => 'btn danger-3 red']) !!}
-                        </div>
-                        {!! FORM::close() !!}
-                    </div>
 
-                    @endforeach
+                                {!! FORM::model($dv,[
+                                    'method' => 'PUT',
+                                    'url' => ['app/user/update', $dv->id]
+                                   ])
+                                !!}
+                                <div class="modal-content">
+
+                                    <div class="input-field col 12">
+                                        {!! FORM::text('name',null) !!}
+                                        {!! FORM::label('name', 'Ime:') !!}
+                                    </div>
+
+                                    <div class="input-field col 12">
+                                        {!! FORM::text('name',null) !!}
+                                        {!! FORM::label('name', 'Ime:') !!}
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+
+                                    {!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
+                                </div>
+                                {!! FORM::close() !!}
+
+                            </div>
+                        @endforeach
+                    @endif
+
+                    
+
                     </tbody>
                 </table>
 
@@ -81,6 +130,14 @@
 
             <div id="izmjerenSladkor" class="col s12">
                 <br>
+                 @if(count($Patient->getDayvisits) == 0)
+                        <div class="col s12"> 
+                           <div class="card-panel center">
+                               <h5 class="deep-purple-text">Ni nobenga vnosa.</h5>
+                               <a href="{{ redirect()->back() }}"><i class="large material-icons deep-purple-text">settings_backup_restore</i></a>
+                            </div>
+                        </div>
+                    @else
                 <table class="centered">
                     <thead>
                     <tr>
@@ -113,7 +170,7 @@
                         
 
                         <!-- Delete Measured sugar-->
-                        <div id="{{ 'deletemodel'.$ms->id }}" class="modal bottom-sheet">
+                        <div id="{{ 'deletemodel'.$ms->id }}" class="modal">
                             <div class="modal-content">
                                 <h5>Ali ste prepričani, da želite izbrisati ?</h5>
                             </div>
@@ -128,9 +185,8 @@
                             </div>
                             {!! FORM::close() !!}
                         </div>
-
-
                     @endforeach
+                    @endif
                     </tbody>
                 </table>
 
@@ -149,6 +205,13 @@
 
             <div id="obisk" class="col s12">
                 <br>
+                @if(count($Patient->getVisits) == 0)
+                        <div class="col s12"> 
+                           <div class="card-panel center">
+                               <h5 class="deep-purple-text">Ni nobenga vnosa.</h5>
+                            </div>
+                        </div>
+                    @else
                 <table class="centered">
                     <thead>
                     <tr>
@@ -184,7 +247,7 @@
                         </tr>
 
                          <!-- Delete Visit sugar-->
-                        <div id="{{ 'deletemodel'.$v->id }}" class="modal bottom-sheet">
+                        <div id="{{ 'deletemodel'.$v->id }}" class="modal">
                             <div class="modal-content">
                                 <h5>Ali ste prepričani, da želite izbrisati ?</h5>
                             </div>
@@ -199,8 +262,8 @@
                             </div>
                             {!! FORM::close() !!}
                         </div>
-
                     @endforeach
+                    @endif
                     </tbody>
                 </table>
 
@@ -268,8 +331,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
-            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+            {!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>
@@ -298,8 +361,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3 " style="margin-left: 10px;">Cancel</a>
-            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3 " style="margin-left: 10px;">Prekliči</a>
+            {!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>
@@ -353,8 +416,8 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
-            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+            {!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>

@@ -55,13 +55,13 @@
 				</tr>
 
 				<!-- Delete User Model-->
-				<div id="{{ 'deletemodel'.$user->id }}" class="modal bottom-sheet">
+				<div id="{{ 'deletemodel'.$user->id }}" class="modal">
 					<div class="modal-content">
 						<h5>Ali ste prepričani, da želite izbrisati ta račun {{ $user->name }} ?</h5>
 					</div>
 					<div class="modal-footer">
 
-						<a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Cancel</a>
+						<a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
 
 						{!! FORM::open([
                             'method' => 'DELETE',

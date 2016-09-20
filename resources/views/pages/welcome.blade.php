@@ -8,8 +8,9 @@
 		</div>
         @if(count($tasks) == 0)
         <div class="col s12"> 
-           <div class="card-panel">
-               <h5 class="deep-purple-text center">Ni nobenga komentarija.</h5>
+           <div class="card-panel center">
+               <h5 class="deep-purple-text">Ni nobenga komentarija.</h5>
+               <a href="/app"><i class="large material-icons deep-purple-text">settings_backup_restore</i></a>
             </div>
         </div>
         @else
@@ -18,8 +19,10 @@
                 @foreach( $tasks as $task)
                     <li>
                       <div class="collapsible-header">
-                      <i class="material-icons blue-grey-text lighten-4">comment</i>
-                      <b class="deep-purple-text darken-3">{{ $task->title }} ( {{ $task->patient->first_name }} {{ $task->patient->last_name }} )</b>
+                      <i class="material-icons deep-purple-text lighten-5">comment</i>
+                      <b class="black-text">
+                      {{ $task->title }}
+                      </b>  
                       <a 
                         class="modal-trigger tooltipped secondary-content" 
                         data-position="right" 
@@ -28,7 +31,7 @@
                         href="#{{ 'editmodel'.$task->id }}"  
                         data-method="delete" 
                         style="bottom: 20px; margin-right: 5px;">
-                        <i class="material-icons blue-grey-text lighten-4">edit</i>
+                        <i class="material-icons deep-purple-text lighten-5">edit</i>
                       </a>
 
                       <a 
@@ -39,22 +42,19 @@
                         href="#{{ 'deletemodel'.$task->id }}"  
                         data-method="delete" 
                         style="bottom: 20px; margin-right: 5px;">
-                        <i class="material-icons blue-grey-text lighten-4">delete</i>
+                        <i class="material-icons deep-purple-text lighten-5">delete</i>
                       </a>
                       </div>
                       <div class="collapsible-body">
                         <p>{{ $task->description }}</p>
-                            <p  class="indigo-text lighten-3" 
-                                style="padding: 0; margin-top: 1px; margin-left: 1%;">
-                                <b>Datum:</b> {{ $task->created_at->format('d.m.Y') }}
+                            <p  style="padding: 0; margin-top: 1px; margin-left: 1%;">
+                                <b class="deep-purple-text darken-3">Datum:</b> {{ $task->created_at->format('d.m.Y') }}
                             </p>
-                            <p  class="indigo-text lighten-3" 
-                                style="padding: 0; margin-top: 1px; margin-left: 1%;">
-                                <b>Uporabnik:</b> {{ $task->author }}
+                            <p style="padding: 0; margin-top: 1px; margin-left: 1%;">
+                                <b class="deep-purple-text darken-3">Napisal:</b> {{ $task->author }}
                             </p>
-                            <p  class="indigo-text lighten-3"
-                                style="padding: 0; margin-bottom: 3px; margin-left: 1%; margin-top: 4px;">
-                                <b>Bolnik:</b> {{ $task->patient->first_name }} {{ $task->patient->last_name }} 
+                            <p style="padding: 0; margin-bottom: 3px; margin-left: 1%; margin-top: 4px;">
+                            <b class="deep-purple-text darken-3" >Bolnik:</b> {{ $task->patient->first_name }} {{ $task->patient->last_name }} 
                             </p>
                       </div>
                     </li>

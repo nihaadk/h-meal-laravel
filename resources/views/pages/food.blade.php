@@ -72,7 +72,7 @@
 				</tr>
 
 				<!-- Delete Food Model-->
-				<div id="{{ 'deletemodel'.$f->id }}" class="modal bottom-sheet">
+				<div id="{{ 'deletemodel'.$f->id }}" class="modal">
 					<div class="modal-content">
 						<h5>Ali ste prepričani, da želite izbrisati {{ $f->title }} ?</h5>
 					</div>
@@ -211,8 +211,8 @@
 			</div>
 		</div>
 	    <div class="modal-footer">
-	    	<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
-	      	{!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
+	    	<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+	      	{!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
 	    </div>
 		{!! FORM::close() !!}
 	</div>

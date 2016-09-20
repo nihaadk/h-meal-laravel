@@ -10,7 +10,6 @@
       <!-- <img src="../../../img/logo_white.png" class="logo_header_size_min"> -->
       <div class="deep-purple lighten-1" style="padding: 15px 30px; margin: 15px 15px;"><large>{{ Auth::user()->name }}</large></div>
     </a>
-    
     <ul class="right hide-on-med-and-down">
       @can('admin')
         <li>
@@ -33,9 +32,8 @@
       </li>
 
       <li>
-        <a href="/auth/logout">Logout<i class="fa fa-sign-out material-icons right" ></i></a>
+        <a href="/auth/logout">Odjava<i class="fa fa-sign-out material-icons right" ></i></a>
         <!-- <a class="dropdown-button" href="#" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">perm_identity</i></a> -->
       </li>
-    </ul>
   </div>
 </nav>
