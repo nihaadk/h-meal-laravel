@@ -101,7 +101,9 @@ class ChartController extends Controller
                 $xdata2 = $data->lists('calories');
                 $xdata3 = $data->lists('carbohydrates');
                 $xdata4 = $data->lists('protein');
-                $ydata = $data->lists('date_of_visit');
+                // tuki sem
+                $ydata = $this->convertCollectionToArray($data->lists('updated_at'));
+                //dd($ydata);
 
             } else {
                 $chartVersion = 1;
@@ -109,7 +111,8 @@ class ChartController extends Controller
                 $xdata2 = null;
                 $xdata3 = null;
                 $xdata4 = null;
-                $ydata = $data->lists('date_of_measurement');
+                $ydata = $this->convertCollectionToArray($data->lists('updated_at'));
+                
             }
 
             
@@ -133,6 +136,14 @@ class ChartController extends Controller
 
 
     // Custome functions
+
+    public function convertCollectionToArray($collection){
+        $newArray = [];
+        for ($i=0; $i < count($collection); $i++) { 
+           $newArray[$i] = $collection[$i]->toDateTimeString();
+        }
+        return $newArray;
+    }
 
     public function ValidationRequest($request){
 

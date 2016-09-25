@@ -25,7 +25,7 @@ class CreateFoodTable extends Migration
         {
             $table->increments('id');
             $table->string('food_code');
-            $table->string('food_type');
+            $table->integer('food_category_id');
             $table->string('title');
             $table->integer('quantity');
             $table->double('protein');
@@ -33,6 +33,8 @@ class CreateFoodTable extends Migration
             $table->double('carbohydrates');
             $table->double('fat');
             $table->timestamps();
+
+            //$table->foreign('food_category_id')->references('id')->on('category');
         });
     }
 

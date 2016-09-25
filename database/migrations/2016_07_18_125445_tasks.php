@@ -16,6 +16,8 @@ class Tasks extends Migration
         {
             $table->increments('id');
             $table->string('author');
+            $table->string('title');
+            $table->integer('patient_id');
             $table->string('description');
             $table->timestamps();
         });

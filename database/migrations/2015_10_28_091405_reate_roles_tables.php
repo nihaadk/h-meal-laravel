@@ -78,7 +78,19 @@ class ReateRolesTables extends Migration
     public function down()
     {
 
-        Schema::drop('roles');
+        Schema::table('role_user', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+            $table->dropForeign('role_id');
+        });
+
+        Schema::table('permission_role', function (Blueprint $table) {
+            $table->dropForeign('role_id');
+            $table->dropForeign('permission_id');
+            //$table->dropColumn('permission_id');
+        });
+
+        //Schema::drop('roles');
+        Schema::dropIfExists('roles');
         Schema::drop('permissions');
 
     }

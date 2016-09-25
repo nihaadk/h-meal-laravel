@@ -6,6 +6,7 @@ use App\Day_visit;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\Food;
+use App\Category;
 use App\Http\Requests;
 use App\Measured_sugar;
 use App\Visit;
@@ -17,12 +18,19 @@ class PatientDetailController extends Controller
     {
         // Create right Patient with right ID
         $patient = Patient::findOrFail($id);
+        $category =Category::all()->reverse();
 
-        $foodlist = Food::lists('title','food_code');
+        $foodlist =Food::lists('title','food_code');
 
         // Return view with patient parameter
-        return view('pages.patient_details',['Patient' => $patient,'Food_list' => $foodlist]);
+        return view('pages.patient_details',['Patient' => $patient,'Food_list' => $foodlist, 'categorys' => $category]);
     }
+
+
+
+    /*
+        DAY VISITS
+    */
 
     public function storeDayVisits($id, Request $request){
 
@@ -30,27 +38,19 @@ class PatientDetailController extends Controller
         $patient = Patient::findOrFail($id);
         $food = Food::where('food_code', $request->food_code)->get()->first();
 
-
-        $protein_r = $request->protein;
-        $calories_r = $request->calories;
-        $carbohydrates_r =$request->carbohydrates;
-        $fat_r = $request->fat;
-
-
-        $protein_d = $food->protein;
-        $calories_d = $food->calories;
-        $carbohydrates_d =$food->carbohydrates;
-        $fat_d = $food->fat;
-
+        if($request->quantity == null || $request->food_type == 3){
+            return redirect("app/patient/detail/$id");
+        }
        
         // Create day_visits array and fill with request data
         $dayVisit = new Day_visit;
-        $dayVisit->protein = $protein_r * $protein_d;
-        $dayVisit->calories = $calories_r * $calories_d;
-        $dayVisit->carbohydrates = $carbohydrates_r * $carbohydrates_d;
-        $dayVisit->fat = $fat_r * $fat_d;
-        $dayVisit->food_type = $request->food_type;
-        $dayVisit->date_of_visit = $this->changeDataFormat($request->date_of_visit);
+        
+        $dayVisit->protein = $food->protein * $request->quantity;
+        $dayVisit->calories = $food->calories * $request->quantity;
+        $dayVisit->carbohydrates = $food->carbohydrates * $request->quantity;
+        $dayVisit->fat = $food->fat * $request->quantity;
+
+        $dayVisit->food_category_id = $request->food_type;
         $dayVisit->food_code = $request->food_code;
 
         // Save the request data in the day_visits table
@@ -60,11 +60,42 @@ class PatientDetailController extends Controller
         return redirect("app/patient/detail/$id");
     }
 
+    public function editds($id, Request $request){
+        $dv = Day_visit::findOrFail($id);
+
+        $food = Food::where('food_code', $dv->food_code)->get()->first();
+
+        $protein_food = $food->protein;
+        $calories_food = $food->calories;
+        $carbohydrates_food =$food->carbohydrates;
+        $fat_food = $food->fat;
+
+        $quantity = $request->quantity;
+
+        $dv->protein = $protein_food * $quantity;
+        $dv->calories = $calories_food * $quantity;
+        $dv->carbohydrates = $carbohydrates_food * $quantity;
+        $dv->fat = $fat_food * $quantity;
+
+        $dv->save();
+
+        return redirect()->back();
+    }
+
     public function destroyds($id) {
         $dv = Day_visit::findOrFail($id);
         $dv->delete();
         return redirect()->back();
     }
+
+
+
+
+
+    /*
+        M SUGAR
+    */
+
 
     public function storeMsugar($id, Request $request){
 
@@ -74,7 +105,6 @@ class PatientDetailController extends Controller
         // Create m_suggar array and fill with request data
         $m_sug = new Measured_sugar();
         $m_sug->number_of_visits  = $request->number_of_visits;
-        $m_sug->date_of_measurement  = $this->changeDataFormat($request->date_of_measurement);
         $m_sug->measurement  = $request->measurement;
 
         // save
@@ -90,6 +120,20 @@ class PatientDetailController extends Controller
         $ms->delete();
         return redirect()->back();
     }
+
+    public function editdms($id, Request $request){
+        $ms = Measured_sugar::findOrFail($id);
+        $ms->measurement = $request->measurement_new;
+        $ms->save();
+        return redirect()->back();
+    }
+
+
+
+
+    /*
+       VISITS
+    */
 
     public function storeVisits( $id, Request $request){
         // Create right Patient with right ID
@@ -107,15 +151,18 @@ class PatientDetailController extends Controller
             $numberOfVisit = 1;
         }
       
-        
+        $visit->patient_id = $id;
         $visit->number_of_visits = $numberOfVisit;
+
         $visit->start_date = $this->changeDataFormat($request->start_date);
         $visit->end_date = $this->changeDataFormat($request->end_date);
         $visit->section_code = $request->section_code;
         $visit->height = $request->height;
         $visit->heaviness = $request->heaviness;
-        $visit->i_heaviness = $request->i_heaviness;
+        $visit->ideal_heaviness = $request->ideal_heaviness;
         $visit->nutritive_needs = $request->nutritive_needs;
+
+        //dd($visit);
 
         // save
         $patient->getVisits()->save($visit);
@@ -125,17 +172,34 @@ class PatientDetailController extends Controller
         return redirect("app/patient/detail/$id");
     }
 
+    public function editv($id, Request $request){
+        
+        $v = Visit::findOrFail($id);
+
+        if($this->changeDataFormat($request->start_date) != null){
+            $v->start_date = $this->changeDataFormat($request->start_date);
+        }
+
+        if($this->changeDataFormat($request->end_date) != null ){
+            $v->end_date = $this->changeDataFormat($request->end_date);
+        }
+
+        $v->section_code = $request->section_code;
+        $v->height = $request->height;
+        $v->heaviness = $request->heaviness;
+        $v->ideal_heaviness = $request->ideal_heaviness;
+        $v->nutritive_needs = $request->nutritive_needs;  
+        $v->save();
+
+        return redirect()->back();
+    }
+
     public function destroyv($id) {
         $v = Visit::findOrFail($id);
         $v->delete();
         return redirect()->back();
     }
 
-
-
-    /*
-     * Other Methods
-     * */
 
     // Method for change the data format
     public function changeDataFormat($date){
@@ -155,5 +219,6 @@ class PatientDetailController extends Controller
 
         return null;
     }
+
 
 }

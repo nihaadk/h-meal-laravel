@@ -11,10 +11,7 @@
           </div>
           <div class="col s3">
              {!! FORM::input('text','bolnik', $bolnik, 
-             ['data-list' => $list,
-              'data-minchars' => '2',
-              'class' => 'awesomplete',
-              'placeholder' => 'Vpiši ZSSS številko bolnika']) 
+             ['data-list' => $list,'placeholder' => 'ZSSS številka']) 
              !!}
           </div>
           <div class="col s3">
@@ -45,7 +42,6 @@
     </div>
   </div>
 </div>
-
 
 <script>
     (function(){

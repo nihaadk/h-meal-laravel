@@ -3,7 +3,7 @@
 <div class="container" style="min-height: 900px">
   <div class="section">
     <div class="row">
-    	<div class="col s12 push-s5">
+    	<div class="col s12">
 			<h2 class="deep-purple-text">Komentarji:</h2>
 		</div>
         @if(count($tasks) == 0)
@@ -109,7 +109,7 @@
         @endif
     </div>
 
-    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large purple darken-4">
       <i class="large material-icons">menu</i>
     </a>

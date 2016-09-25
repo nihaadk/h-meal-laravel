@@ -45,12 +45,23 @@ Route::group(['middleware' => 'auth'], function ()
 
 	Route::post('app/patient/store_day_v/{id}', 'PatientDetailController@storeDayVisits');
 	Route::delete('app/patient/day_visit_delete/{id}', 'PatientDetailController@destroyds');
+	Route::put('app/patient/day_visit_edit/{id}', 'PatientDetailController@editds');
 
 	Route::post('app/patient/store_m_sugar/{id}', 'PatientDetailController@storeMsugar');
 	Route::delete('app/patient/m_sugar_delete/{id}', 'PatientDetailController@destroyms');
+	Route::put('app/patient/m_sugar_edit/{id}', 'PatientDetailController@editdms');
 
 	Route::post('app/patient/store_visits/{id}', 'PatientDetailController@storeVisits');
 	Route::delete('app/patient/visits_delete/{id}', 'PatientDetailController@destroyv');
+	Route::put('app/patient/visits_edit/{id}', 'PatientDetailController@editv');
+
+	Route::get('/ajax-subfood', function(){
+		$cat_id = Input::get('cat_id');
+
+		$subcategory = App\Food::where('food_category_id','=',$cat_id)->get();
+
+		return Response::json($subcategory);
+	});
 });
 
 

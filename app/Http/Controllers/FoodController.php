@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Food;
+use App\Category;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -17,14 +18,15 @@ class FoodController extends Controller
     {
         if(Auth::check())
         {
+            $food_category = Category::all();
             $query = $request->search;
             if($query)
             {
                 $foods = DB::table('foods')->where('food_code', $query)->get();
-                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList()]);
+                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList(),'food_category' => $food_category]);
             }else{
                 $foods = Food::all();
-                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList()]);
+                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList(),'food_category' => $food_category]);
             }
         }
         else
@@ -37,16 +39,29 @@ class FoodController extends Controller
   
     public function store(Request $request)
     {
+        if($request->title == "" || $request->fat == "" || $request->protein == "" || $request->calories == "" || $request->carbohydrates == ""){
+
+           return redirect('app/food/list');
+        }
+
+        
         $food = new Food();
         $food->title = $request->title;
         $food->fat = $request->fat;
         $food->protein = $request->protein;
         $food->calories = $request->calories;
         $food->carbohydrates = $request->carbohydrates;
-        $food->food_type = $request->food_type;
+        $food->food_category_id = $request->food_category_id;
         $food->quantity = $request->quantity;
 
-        $food->food_code = $this->makeFoodCode($request);
+        $food->food_code = $this->makeFoodCode(
+            $request->fat, 
+            $request->protein, 
+            $request->calories, 
+            $request->carbohydrates, 
+            $request->food_category_id, 
+            $request->code
+        );
 
         $food->save();
 
@@ -68,31 +83,25 @@ class FoodController extends Controller
         $food = Food::findOrFail($id);
 
         $food->title = $request->title;
-        $food->food_code = $request->food_code;
         $food->fat = $request->fat;
         $food->protein = $request->protein;
         $food->calories = $request->calories;
         $food->carbohydrates = $request->carbohydrates;
-        //$food->food_type = $request->food_type;
         $food->quantity = $request->quantity;
-
-
+        $code = substr($food->food_code, 1, 3);
+        
+        $food->food_code = $this->makeFoodCode(
+            $request->fat, 
+            $request->protein, 
+            $request->calories, 
+            $request->carbohydrates, 
+            $request->food_category_id, 
+            $code
+        );
 
         $food->save();
 
         return redirect('app/food/list');
-    }
-
-    public function upQuantity($id)
-    {
-
-        $food = Food::findOrFail($id);
-        $q = $food->quantity;
-        $q += 1;
-        $food->quantity = $q;
-        $food->save();
-
-        return redirect()->to('app/food/list');
     }
 
     public function floatToDigit( $var){
@@ -104,7 +113,11 @@ class FoodController extends Controller
     }
 
     public function converTo3Dig( $var ){
-        
+
+        if($var == '0'){
+          return '000';
+        }
+
         if( (int)($var/10) != 0  && (int)($var/10) < 10 ){
           $left = $this->floatToDigit($var);  
           return $left;
@@ -119,23 +132,31 @@ class FoodController extends Controller
     }
     
 
-    public function makeFoodCode( $req )
+    public function makeFoodCode( 
+      $fat_r, 
+      $protein_r, 
+      $calories_r, 
+      $carbo_r, 
+      $category_id_r, 
+      $code_r )
     {
-      $fat = $this->converTo3Dig($req->fat);
-      $protein = $this->converTo3Dig($req->protein);
-      $calories = $this->converTo3Dig($req->calories);
-      $carbo = $this->converTo3Dig($req->carbohydrates);
-
-      if($req->food_type == 'Intravenozno'){
+      $fat = $this->converTo3Dig($fat_r);
+      $protein = $this->converTo3Dig($protein_r);
+      $calories = $this->converTo3Dig($calories_r);
+      $carbo = $this->converTo3Dig($carbo_r);
+      
+      // Intravenozno
+      if($category_id_r == '1'){
         $type = 1;
+      // Per os
       }else {
         $type = 0;
       }
 
-      $code = $this->converTo3Dig($req->food_code);
+      $code = $this->converTo3Dig($code_r);
 
+      // 1 (type) + 3 (code) + 3 (fat) + 3 (protein) + 3 (carbo) + 3 (calories)
       $r = $type.''.$code.''.$fat.''.$protein.''.$carbo.''.$calories;
-      //dd($r); 
       return $r;         
     }
 
@@ -145,8 +166,6 @@ class FoodController extends Controller
         $listOfPatients = join(',', $arrayOfPatients);
         return $listOfPatients;
     }
-
-
 
 
 

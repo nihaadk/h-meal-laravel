@@ -76,13 +76,12 @@ class AdminSeeder extends Seeder
 
         $patient1 = new Patient;
 
-        $patient1->first_name = 'Emir';
-        $patient1->last_name = 'Kepic';
+        $patient1->first_name = 'Miha';
+        $patient1->last_name = 'Novak';
         $patient1->address = 'Ulica ljubljana';
         $patient1->date = '1967-08-03';
         $patient1->zzzs_number = '053251190333';
         $patient1->save();
-        
         
     }
 }

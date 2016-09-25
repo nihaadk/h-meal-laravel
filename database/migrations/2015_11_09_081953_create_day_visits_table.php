@@ -18,9 +18,8 @@ class CreateDayVisitsTable extends Migration
             $table->increments('id');
             $table->integer('patient_id');
             $table->integer('number_of_visits');
-            $table->date('date_of_visit');
             $table->string('food_code',50);
-            $table->string('food_type');
+            $table->integer('food_category_id');
             $table->double('fat', 15, 3);
             $table->double('calories', 15, 3);
             $table->double('carbohydrates', 15, 3);

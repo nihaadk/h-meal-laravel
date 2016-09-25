@@ -35,7 +35,6 @@ class TaskController extends Controller
         $task->patient_id = $request->patient_id;
         $task->title = $request->title; 
         $task->description = $request->description;
-        $task->created_at = $request->created_at;
         
         $task->save();
 

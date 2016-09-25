@@ -1,48 +1,52 @@
   <!-- Compiled and minified JavaScript --> 
-  <script src="{{ asset('js/awesomplete.js') }}"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <!-- subcategory food -->
   <script>
+     $('#cateogries').on('change',function(e){
+            console.log(e);
+            var cat_id = e.target.value;
 
-  $('.button-collapse').sideNav({
-      menuWidth: 200, // Default is 240
-      edge: 'left', // Choose the horizontal origin
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-    }
-  );
-
-  // Show sideNav
-  $('.button-collapse').sideNav('show');
-  // Hide sideNav
-  $('.button-collapse').sideNav('hide');
-
-  // tabs
-  $(document).ready(function(){
-    $('ul.tabs').tabs();
-  });
-
-
-
-
-
-
+            //ajax
+            $.get('/ajax-subfood?cat_id=' + cat_id, function(data){
+                // success data        
+                $("#subcategory").empty();
+                $.each(data, function(index, subCatObj){
+                  console.log(subCatObj);
+                   $("#subcategory").append('<option value="'+subCatObj.food_code+'">'+subCatObj.title+'</option>');
+                });
+                $('#subcategory').removeAttr('disabled');
+                // update the dropdown list
+                $('#subcategory').material_select();
+            });  
+      });
   </script>
 
   <script>
+  
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+
     $(document).ready(function(){
       // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-      $('.modal-trigger').leanModal();
+      $('.modal-trigger').leanModal(
+        {
+          dismissible: false, // Modal can be dismissed by clicking outside of the modal
+          opacity: .8, // Opacity of modal background
+          in_duration: 300, // Transition in duration
+          out_duration: 200, // Transition out duration
+          starting_top: '4%', // Starting top style attribute
+          ending_top: '10%' // Ending top style attribute
+        }
+        );
     });
 
     $(document).ready(function(){
       $('.tooltipped').tooltip({delay: 50});
     });
 
-    $(document).ready(function() {
-      $('select').material_select();
-    });
+   
 
     $(document).ready(function(){
       $('.collapsible').collapsible({

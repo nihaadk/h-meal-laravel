@@ -18,7 +18,6 @@ class CreateMeasuredSugarsTable extends Migration
             $table->increments('id');
             $table->integer('patient_id');
             $table->integer('number_of_visits');
-            $table->date('date_of_measurement');
             $table->double('measurement', 15,3);
             $table->timestamps();
         });

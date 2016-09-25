@@ -3,16 +3,14 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col s8 push-s5">
+		<div class="col s8">
 			<h2 class="deep-purple-text">Bolniki</h2>
 		</div>
-		<div class="col s4 pull-s7">
+		<div class="col s4">
 			<div class="input-field">
 				{!! FORM::open(['method' => 'GET']) !!}
 				{!! FORM::input('search','search', null, 
 				   ['data-list' => $list,
-              		'data-minchars' => '2',
-              		'class' => 'awesomplete',
               		'placeholder' => 'Vpiši ZZZS številko']) 
               	!!}
 				{!! FORM::close() !!}

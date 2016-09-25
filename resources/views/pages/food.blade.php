@@ -3,10 +3,10 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col s8 push-s5">
+		<div class="col s8">
 			<h2 class="deep-purple-text">Hranilne snovi</h2>
 		</div>
-		<div class="col s4 pull-s7">
+		<div class="col s4">
 			<div class="input-field">
 				{!! FORM::open(['method' => 'GET']) !!}
 				{!! FORM::input('search','search', null, 
@@ -22,7 +22,7 @@
 
 	<table class="centered bordered highlight">
 		@if( count($Foods) == 0)
-			<div class="card-panel red lighten-1 white-text"><h5 style="text-align: center;">Seznam je prazen !</h5></div>
+			<div class="card-panel deep-purple-text lighten-1"><h5 style="text-align: center;">Seznam je prazen !</h5></div>
 		@else
 			<thead>
 			<tr>
@@ -48,7 +48,11 @@
 					<td >{{ $f->protein }}</td>
 					<td>{{ $f->calories }}</td>
 					<td>{{ $f->carbohydrates }}</td>
-					<td>{{ $f->food_type }}</td>
+					@if( $f->food_category_id == '1')
+						<td>Intravenozno</td>
+					@else
+						<td>Per os</td>
+					@endif
 					<td>{{ $f->quantity }}</td>
 
 					<td class="td-icon">
@@ -59,14 +63,6 @@
 					<td class="td-icon">
 						<a class="btn-floating modal-trigger" href="#{{ 'deletemodel'.$f->id }}"  data-method="delete">
 							<i class="material-icons  red darken-1">delete</i>
-						</a>
-					</td>
-					<td class="td-icon">
-
-							<!-- /app/food/quantity/-->
-						<a class="btn-floating modal-trigger" href="{{ URL::to('/app/food/quantity/'.$f->id) }}">
-
-							<i class="material-icons blue darken-3">exposure_plus_1</i>
 						</a>
 					</td>
 				</tr>
@@ -97,46 +93,33 @@
                     !!}
 					<div class="modal-content">
 
-							<!--
-						<div class="input-field col 12">
-			    			{!! FORM::select('food_type', array('Per os'=>'Per os','Intravenozno'=>'Intravenozno')) !!}
-			    			{!! FORM::label('food_type', 'Vrsta hrane:') !!}
-           				</div>
-           					-->
-
 						<div class="input-field col 12">
 							{!! FORM::text('title', null) !!}
 							{!! FORM::label('title', 'Naziv proizvoda:') !!}
 						</div>
-						<!--
-						<div class="input-field col 12">
-							{!! FORM::input('number', 'food_code', null, array('min'=>'0','max'=>'9999')) !!}
-							{!! FORM::label('food_code', 'Koda proizvoda:') !!}
-						</div>
-						-->
 
 						<div class="input-field col 12">
-							{!! FORM::input('number', 'fat', null, array('min'=>'0','step'=>'0.01')) !!}
+							{!! FORM::input('number', 'fat', null, array('min'=>'0','step'=>'0.1')) !!}
 							{!! FORM::label('fat', 'Maščoba  (g):') !!}
 						</div>
 
 						<div class="input-field col 12">
-							{!! FORM::input('number', 'protein', null, array('min'=>'0','step'=>'0.01')) !!}
+							{!! FORM::input('number', 'protein', null, array('min'=>'0','step'=>'0.1')) !!}
 							{!! FORM::label('protein', 'Beljankovine (g):') !!}
 						</div>
 
 						<div class="input-field col 12">
-							{!! FORM::input('number', 'calories', null, array('min'=>'0','step'=>'0.01')) !!}
+							{!! FORM::input('number', 'calories', null, array('min'=>'0','step'=>'1.0')) !!}
 							{!! FORM::label('calories', 'Kalorije (kCal):') !!}
 						</div>
 
 						<div class="input-field col 12">
-							{!! FORM::input('number', 'carbohydrates', null, array('min'=>'0','step'=>'0.01')) !!}
+							{!! FORM::input('number', 'carbohydrates', null, array('min'=>'0','step'=>'0.1')) !!}
 							{!! FORM::label('carbohydrates', 'Ogljikovi hidrati (g):') !!}
 						</div>
 
 						<div class="input-field col 12">
-							{!! FORM::input('number', 'quantity', null, array('min'=>'0','max'=>'999')) !!}
+							{!! FORM::input('number', 'quantity', null, array('min'=>'0','max'=>'999','step'=>'1.0')) !!}
 							{!! FORM::label('quantity', 'Kolicina:') !!}
 						</div>
 					</div>
@@ -147,7 +130,6 @@
 					{!! FORM::close() !!}
 				</div>
 			@endforeach
-
 			@endif
 			</tbody>
 	</table>
@@ -171,8 +153,8 @@
 	    <div class="modal-content">
 
 	    	<div class="input-field col 12">
-			    {!! FORM::select('food_type', array('Per os'=>'Per os','Intravenozno'=>'Intravenozno'),null) !!}
-			    {!! FORM::label('food_type', 'Vrsta hrane:') !!}
+			    {!! FORM::select('food_category_id', array('1'=>'Intravenozno', '2'=>'Per os'),null) !!}
+			    {!! FORM::label('food_category_id', 'Vrsta hrane:') !!}
            	</div>
 
 			<div class="input-field col 12">
