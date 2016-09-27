@@ -79,7 +79,7 @@ class PatientDetailController extends Controller
 
         $dv->save();
 
-        return redirect()->back();
+        return redirect()->back()->white('quantity', $quantity);
     }
 
     public function destroyds($id) {
@@ -123,7 +123,12 @@ class PatientDetailController extends Controller
 
     public function editdms($id, Request $request){
         $ms = Measured_sugar::findOrFail($id);
-        $ms->measurement = $request->measurement_new;
+        
+        if($request->measurement == null){
+            return redirect()->back();
+        }
+
+        $ms->measurement = $request->measurement;
         $ms->save();
         return redirect()->back();
     }

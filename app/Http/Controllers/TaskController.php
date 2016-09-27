@@ -149,9 +149,17 @@ class TaskController extends Controller
                     }
                 }
 
+                $author = null;
+                $from = null;
+                $to = null;
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
 
                 break;
@@ -163,9 +171,17 @@ class TaskController extends Controller
                     }
                 }
 
+                $patient_id = null;
+                $from = null;
+                $to = null;
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
 
                 break;
@@ -177,9 +193,16 @@ class TaskController extends Controller
                     }
                 }
 
+                $patient_id = null;
+                $author = null;    
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
                 
                 break;
@@ -191,9 +214,16 @@ class TaskController extends Controller
                     }
                 }
 
+                $from = null;
+                $to = null;   
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
                 
                 break;
@@ -205,9 +235,15 @@ class TaskController extends Controller
                     }
                 }
 
+                $patient_id = null;
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
                 
                 break;
@@ -219,9 +255,15 @@ class TaskController extends Controller
                     }
                 }
 
+                $patient_id = null;
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
                 break;
 
@@ -236,6 +278,10 @@ class TaskController extends Controller
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $filterTasks);
                     
                 break;

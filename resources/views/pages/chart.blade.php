@@ -101,7 +101,7 @@
               data: {!! json_encode($xdata2) !!}
             },
             {
-              label: 'Beljankovine', 
+              label: 'Beljakovine', 
               fill: false,
               backgroundColor: "rgba(0,184,245,0.7)",
               borderColor: "rgba(0,184,245,1)",

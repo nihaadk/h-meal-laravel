@@ -3,9 +3,31 @@
 <div class="container" style="min-height: 900px">
   <div class="section">
     <div class="row">
-    	<div class="col s12">
-			<h2 class="deep-purple-text">Komentarji:</h2>
-		</div>
+    	<div class="col s6">
+			<h2 class="deep-purple-text">Komentarji:</h2>    
+        </div>
+        
+        <div class="col s6">
+            @if($patient_id)
+               <div class="chip">
+                   Bolnik: <b>{{ App\Patient::findOrFail($patient_id)->first_name  }} {{ App\Patient::findOrFail($patient_id)->last_name  }}</b>
+                   <i class="close material-icons">close</i>
+               </div> 
+            @endif
+            @if($author)
+                <div class="chip">
+                    Autor: <b>{{ $author->name }}</b>
+                    <i class="close material-icons">close</i>
+                </div> 
+            @endif
+            @if($dateFrom && $dateTo)
+                <div class="chip">
+                    Od: <b>{{ $dateFrom }}</b> Do: <b>{{ $dateTo }}</b>
+                    <i class="close material-icons">close</i>
+                </div> 
+            @endif
+        </div>
+
         @if(count($tasks) == 0)
         <div class="col s12"> 
            <div class="card-panel center">

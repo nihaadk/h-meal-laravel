@@ -6,7 +6,7 @@
             <div class="col s12">
                 <ul class="tabs">
                     <li class="tab col s3 blue-text"><a href="#dnevniVnosi">Dnevni vnosi</a></li>
-                    <li class="tab col s3"><a href="#izmjerenSladkor">Izmerjen sladkor</a></li>
+                    <li class="tab col s3"><a href="#izmerjenSladkor">Izmerjen sladkor</a></li>
                     <li class="tab col s3"><a href="#obisk">Obiski</a></li>
                 </ul>
             </div>
@@ -24,9 +24,9 @@
                     <tr>
                         <th data-field="datum">Datum meritve</th>
                         <th data-field="vrstaHrane">Vrsta hrane</th>
-                        <th data-field="kodaHrane">Koda hrane</th>
+                        <th data-field="kodaHrane">Naziv hrane</th>
                         <th data-field="mascober">Masčoba</th>
-                        <th data-field="beljankovine">Beljankovine</th>
+                        <th data-field="beljakovine">Beljakovine</th>
                         <th data-field="kalorije">Kalorije</th>
                         <th data-field="ogljikohidrati">Oglj.hidrati</th>
                     </tr>
@@ -123,7 +123,7 @@
                 </div>
             </div>
 
-            <div id="izmjerenSladkor" class="col s12">
+            <div id="izmerjenSladkor" class="col s12">
                 <br>
                  @if(count($Patient->getMeasuredsugars) == 0)
                     <div class="col s12"> 
@@ -195,8 +195,8 @@
                             !!}
                             <div class="modal-content">
                                 <div class="input-field">
-                                    {!! FORM::input('number','measurement_new',null, array('min'=>'1','step' => '0.1','max'=>'30')) !!}
-                                    {!! FORM::label('measurement_new', 'Meritev:') !!}
+                                    {!! FORM::input('number','measurement',null, array('min'=>'1','step' => '0.1','max'=>'30')) !!}
+                                    {!! FORM::label('measurement', 'Meritev:') !!}
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -393,7 +393,7 @@
                 <select name="food_code" id="subcategory" disabled>
                    <option value="" disabled selected>None</option>
                 </select>
-                {!! FORM::label('food_code', 'Koda hrane:') !!}
+                {!! FORM::label('food_code', 'Naziv hrane:') !!}
             </div>
 
             <div class="input-field col 12">

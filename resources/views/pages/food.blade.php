@@ -105,7 +105,7 @@
 
 						<div class="input-field col 12">
 							{!! FORM::input('number', 'protein', null, array('min'=>'0','step'=>'0.1')) !!}
-							{!! FORM::label('protein', 'Beljankovine (g):') !!}
+							{!! FORM::label('protein', 'Beljakovine (g):') !!}
 						</div>
 
 						<div class="input-field col 12">
@@ -179,7 +179,7 @@
 
 			<div class="input-field col 12">
 				{!! FORM::input('number', 'protein', null, array('min'=>'0','step'=>'0.1')) !!}
-				{!! FORM::label('protein', 'Beljankovine (g):') !!}
+				{!! FORM::label('protein', 'Beljakovine (g):') !!}
 			</div>
 
 			<div class="input-field col 12">
