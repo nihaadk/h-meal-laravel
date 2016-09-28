@@ -8,19 +8,19 @@
         </div>
         
         <div class="col s6">
-            @if($patient_id)
+            @if($patient_id != null)
                <div class="chip">
                    Bolnik: <b>{{ App\Patient::findOrFail($patient_id)->first_name  }} {{ App\Patient::findOrFail($patient_id)->last_name  }}</b>
                    <i class="close material-icons">close</i>
                </div> 
             @endif
-            @if($author)
+            @if($author != null)
                 <div class="chip">
                     Autor: <b>{{ $author->name }}</b>
                     <i class="close material-icons">close</i>
                 </div> 
             @endif
-            @if($dateFrom && $dateTo)
+            @if($dateFrom != null && $dateTo != null)
                 <div class="chip">
                     Od: <b>{{ $dateFrom }}</b> Do: <b>{{ $dateTo }}</b>
                     <i class="close material-icons">close</i>

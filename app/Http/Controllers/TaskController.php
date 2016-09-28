@@ -19,11 +19,20 @@ class TaskController extends Controller
         $userList = [''=>''] + User::lists('name', 'id')->all();
         $patientList = [''=>''] + Patient::lists('last_name', 'id')->all();
 
+        // Init Filter variabel NULL
+        $author = null;
+        $from = null;
+        $to = null;
+        $patient_id = null;
 
 
         return view('pages.welcome')
             ->with('patientList', $patientList)
             ->with('userList', $userList)
+            ->with('patient_id', $patient_id)
+            ->with('author', $author)
+            ->with('dateFrom', $from)
+            ->with('dateTo', $to)
             ->with('tasks', $tasks);
     }
 
