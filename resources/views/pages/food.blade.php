@@ -27,10 +27,10 @@
 			<thead>
 			<tr>
 				<th data-field="titel">Naziv</th>
-				<th data-field="food_code">Koda</th>
+				<th data-field="food_code">Koda hrane</th>
+				<th data-field="calories">Kalorije(kCal)</th>
 				<th data-field="fat">Maš(g)</th>
 				<th data-field="protein">Belj.(g)</th>
-				<th data-field="calories">E(kCal)</th>
 				<th data-field="carbohydrates">Og.H.(g)</th>
 				<th data-field="food_type">Vrsta hrane</th>
 				<th data-field="quantity">Količina</th>
@@ -44,9 +44,9 @@
 				<tr>
 					<td>{{ $f->title  }}</td>
 					<td>{{ $f->food_code }}</td>
+					<td>{{ $f->calories }}</td>
 					<td>{{ $f->fat }}</td>
 					<td >{{ $f->protein }}</td>
-					<td>{{ $f->calories }}</td>
 					<td>{{ $f->carbohydrates }}</td>
 					@if( $f->food_category_id == '1')
 						<td>Intravenozno</td>
@@ -99,6 +99,11 @@
 						</div>
 
 						<div class="input-field col 12">
+							{!! FORM::input('number', 'calories', null, array('min'=>'0','step'=>'1.0')) !!}
+							{!! FORM::label('calories', 'Kalorije (kCal):') !!}
+						</div>
+
+						<div class="input-field col 12">
 							{!! FORM::input('number', 'fat', null, array('min'=>'0','step'=>'0.1')) !!}
 							{!! FORM::label('fat', 'Maščoba  (g):') !!}
 						</div>
@@ -106,11 +111,6 @@
 						<div class="input-field col 12">
 							{!! FORM::input('number', 'protein', null, array('min'=>'0','step'=>'0.1')) !!}
 							{!! FORM::label('protein', 'Beljakovine (g):') !!}
-						</div>
-
-						<div class="input-field col 12">
-							{!! FORM::input('number', 'calories', null, array('min'=>'0','step'=>'1.0')) !!}
-							{!! FORM::label('calories', 'Kalorije (kCal):') !!}
 						</div>
 
 						<div class="input-field col 12">

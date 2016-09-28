@@ -135,9 +135,18 @@ class TaskController extends Controller
         switch ($combination) {
             case '0':
                 // no filter
+                $author = null;
+                $from = null;
+                $to = null;
+                $patient_id = null;
+
                 return view('pages.welcome')
                     ->with('userList', $userList)
                     ->with('patientList', $patientList)
+                    ->with('patient_id', $patient_id)
+                    ->with('author', $author)
+                    ->with('dateFrom', $from)
+                    ->with('dateTo', $to)
                     ->with('tasks', $tasks);
                 
                 break;

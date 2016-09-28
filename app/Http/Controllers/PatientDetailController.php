@@ -61,9 +61,12 @@ class PatientDetailController extends Controller
     }
 
     public function editds($id, Request $request){
+        
         $dv = Day_visit::findOrFail($id);
 
         $food = Food::where('food_code', $dv->food_code)->get()->first();
+
+        dd($food, $dv->food_code);
 
         $protein_food = $food->protein;
         $calories_food = $food->calories;
