@@ -29,11 +29,12 @@
                         <th data-field="beljakovine">Beljakovine</th>
                         <th data-field="kalorije">Kalorije</th>
                         <th data-field="ogljikohidrati">Oglj.hidrati</th>
+                        <th data-field="količinaZaušiteSnovi">Količina zaušite snovi</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                        @foreach ( $Patient->getDayvisits as $dv)
+                        @foreach ( $Patient->getDayvisits->sortByDesc('updated_at') as $dv)
                         <tr>
                             <td>{{ $dv->updated_at->format('d.m.Y') }}</td>
                             
@@ -45,11 +46,12 @@
                                 <td>Per Os</td>
                             @endif
                             
-                            <td>{{ $dv->food_code }}</td>
+                            <td>{{ App\Food::returnTitle($dv->food_code)->title }}</td>
                             <td>{{ $dv->fat }}</td>
                             <td>{{ $dv->protein }}</td>
                             <td>{{ $dv->calories }}</td>
                             <td>{{ $dv->carbohydrates }}</td>
+                            <td>{{ $dv->quantity }}</td>
                             <td class="td-icon">
                                 <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanje" href="#{{ 'ds_model'.$dv->id }}" >
                                     <i class="material-icons  green darken-3">mode_edit</i>
@@ -82,7 +84,7 @@
                             {!! FORM::close() !!}
                         </div>
 
-                        <!-- Edit User Model-->
+                        <!-- Edit Day Visit-->
                         <div id="{{ 'ds_model'.$dv->id }}" class="modal modal-fixed-footer">
                             {!! FORM::model($dv,[
                                 'method' => 'PUT',
@@ -91,9 +93,13 @@
                             !!}
                             <div class="modal-content">
                                 <div class="input-field">
-                                {!! FORM::input('number', 'quantity', null, array('min'=>'0','max'=>'1000')) !!}
-                                {!! FORM::label('quantity', 'Količina:') !!}
+                                    {!! FORM::input('number', 'quantity', null, array('min'=>'0','max'=>'1000')) !!}
+                                    {!! FORM::label('quantity', 'Količina:') !!}
                                 </div>
+                               {{--  <div class="input-field">
+                                    {!! FORM::text('updated_at', null, array('class' => 'datepicker')) !!}
+                                    {!! FORM::label('updated_at', 'Datum konca hospitalizacije:') !!}
+                                </div> --}}
                             </div>
                             <div class="modal-footer">
                                 <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
@@ -142,7 +148,7 @@
                     </thead>
 
                     <tbody>
-                    @foreach ( $Patient->getMeasuredsugars as $ms)
+                    @foreach ( $Patient->getMeasuredsugars->sortByDesc('updated_at') as $ms)
                         <tr>
                             <td>{{ $ms->updated_at->format('d.m.Y') }}</td>
                             <td>{{ $ms->number_of_visits }}</td>
@@ -249,7 +255,7 @@
                     </thead>
 
                     <tbody>
-                    @foreach ( $Patient->getVisits as $v)
+                    @foreach ( $Patient->getVisits->sortByDesc('updated_at') as $v)
                         <tr>
                             <td>{{ $v->number_of_visits }}</td>
                             <td>{{ $v->start_date }}</td>
@@ -397,8 +403,8 @@
             </div>
 
             <div class="input-field col 12">
-               {!! FORM::input('number','quantity',null, array('min'=>'0','max'=>'100')) !!}
-                {!! FORM::label('quantity', 'Količina :') !!}
+               {!! FORM::input('number','quantity',null, array('min'=>'0','max'=>'10000')) !!}
+                {!! FORM::label('quantity', 'Količina zaušite snovi (ml):') !!}
             </div>
         </div>
         <div class="modal-footer">

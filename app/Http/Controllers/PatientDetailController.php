@@ -26,37 +26,40 @@ class PatientDetailController extends Controller
         return view('pages.patient_details',['Patient' => $patient,'Food_list' => $foodlist, 'categorys' => $category]);
     }
 
-
-
     /*
         DAY VISITS
     */
 
     public function storeDayVisits($id, Request $request){
 
-        // Create right Patient with right ID
         $patient = Patient::findOrFail($id);
         $food = Food::where('food_code', $request->food_code)->get()->first();
 
         if($request->quantity == null || $request->food_type == 3){
             return redirect("app/patient/detail/$id");
         }
-       
-        // Create day_visits array and fill with request data
+
+        // preveri stanje KOLICINE hrane
+        if($request->quantity <= $food->quantity){
+            $food->quantity = $food->quantity - $request->quantity;
+            $food->save();
+        }
+
         $dayVisit = new Day_visit;
-        
-        $dayVisit->protein = $food->protein * $request->quantity;
-        $dayVisit->calories = $food->calories * $request->quantity;
-        $dayVisit->carbohydrates = $food->carbohydrates * $request->quantity;
-        $dayVisit->fat = $food->fat * $request->quantity;
+
+        // (vnesena vrednost / kolicina hranljive snovi) * #### hranljive vrednost
+        // #### je lahko Mas, Beljank, OH, KCal
+        $dayVisit->protein = ($request->quantity / $food->quantity) * $food->protein;
+        $dayVisit->calories = ($request->quantity / $food->quantity) * $food->calories;
+        $dayVisit->carbohydrates = ($request->quantity / $food->quantity) * $food->carbohydrates;
+        $dayVisit->fat = ($request->quantity / $food->quantity) * $food->fat;
+        $dayVisit->quantity = $request->quantity;
 
         $dayVisit->food_category_id = $request->food_type;
         $dayVisit->food_code = $request->food_code;
 
-        // Save the request data in the day_visits table
         $patient->getDayvisits()->save($dayVisit);
-
-        // Return to patient detail view
+        
         return redirect("app/patient/detail/$id");
     }
 
@@ -66,7 +69,6 @@ class PatientDetailController extends Controller
 
         $food = Food::where('food_code', $dv->food_code)->get()->first();
 
-        dd($food, $dv->food_code);
 
         $protein_food = $food->protein;
         $calories_food = $food->calories;
@@ -75,14 +77,17 @@ class PatientDetailController extends Controller
 
         $quantity = $request->quantity;
 
-        $dv->protein = $protein_food * $quantity;
-        $dv->calories = $calories_food * $quantity;
-        $dv->carbohydrates = $carbohydrates_food * $quantity;
-        $dv->fat = $fat_food * $quantity;
+        // (vnesena vrednost / kolicina hranljive snovi) * #### hranljive vrednost
+        // #### je lahko Mas, Beljank, OH, KCal
+        $dv->protein = ($request->quantity / $food->quantity) * $food->protein;
+        $dv->calories = ($request->quantity / $food->quantity) * $food->calories;
+        $dv->carbohydrates = ($request->quantity / $food->quantity) * $food->carbohydrates;
+        $dv->fat = ($request->quantity / $food->quantity) * $food->fat;
+        $dv->quantity = $request->quantity;
 
         $dv->save();
 
-        return redirect()->back()->white('quantity', $quantity);
+        return redirect()->back();
     }
 
     public function destroyds($id) {

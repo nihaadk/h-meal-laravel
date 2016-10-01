@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('/ajax-subfood', function(){
 		$cat_id = Input::get('cat_id');
 
-		$subcategory = App\Food::where('food_category_id','=',$cat_id)->get();
+		$subcategory = App\Food::where('food_category_id','=',$cat_id)->where('quantity','>','0')->get();
 
 		return Response::json($subcategory);
 	});

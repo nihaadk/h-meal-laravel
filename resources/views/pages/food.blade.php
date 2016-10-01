@@ -40,7 +40,7 @@
 			<tbody class="tbody-center">
 
 
-			@foreach ( $Foods as $f)
+			@foreach ( $Foods->sortByDesc('updated_at') as $f)
 				<tr>
 					<td>{{ $f->title  }}</td>
 					<td>{{ $f->food_code }}</td>
@@ -48,7 +48,7 @@
 					<td>{{ $f->fat }}</td>
 					<td >{{ $f->protein }}</td>
 					<td>{{ $f->carbohydrates }}</td>
-					@if( $f->food_category_id == '1')
+					@if( $f->food_category_id == '2')
 						<td>Intravenozno</td>
 					@else
 						<td>Per os</td>
@@ -153,7 +153,7 @@
 	    <div class="modal-content">
 
 	    	<div class="input-field col 12">
-			    {!! FORM::select('food_category_id', array('1'=>'Intravenozno', '2'=>'Per os'),null) !!}
+			    {!! FORM::select('food_category_id', array('2'=>'Intravenozno', '1'=>'Per os'),null) !!}
 			    {!! FORM::label('food_category_id', 'Vrsta hrane:') !!}
            	</div>
 
