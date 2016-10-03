@@ -175,8 +175,6 @@ class PatientDetailController extends Controller
         $visit->ideal_heaviness = $request->ideal_heaviness;
         $visit->nutritive_needs = $request->nutritive_needs;
 
-        //dd($visit);
-
         // save
         $patient->getVisits()->save($visit);
 

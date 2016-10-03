@@ -111,6 +111,16 @@
                         @endforeach
                     @endif
 
+                    {{-- <tr>
+                        <th>6.77</th>
+                        <th>1.22</th>
+                        <th>6.77</th>
+                        <th>6.34</th>
+                        <th>6.77</th> 
+                        <th>6.77</th>
+                        <th>6.34</th>
+                        <th>6.77</th>  
+                    </tr> --}}
                     
 
                     </tbody>

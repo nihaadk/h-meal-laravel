@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::post('app/food/add', 'FoodController@store');
 	Route::delete('app/food/delete/{id}', 'FoodController@destroy');
 	Route::put('app/food/update/{id}', 'FoodController@update');
-	Route::get('app/food/quantity/{id}', 'FoodController@upQuantity');
+	//Route::get('app/food/quantity/{id}', 'FoodController@upQuantity');
 
 
 

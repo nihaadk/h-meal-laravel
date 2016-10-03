@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Food;
 use App\Category;
+use App\Patient;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
@@ -79,8 +80,8 @@ class FoodController extends Controller
 
     public function update($id, Request $request)
     {
-
         $food = Food::findOrFail($id);
+        $allPatients = Patient::all();
 
         $food->title = $request->title;
         $food->fat = $request->fat;
@@ -89,8 +90,10 @@ class FoodController extends Controller
         $food->carbohydrates = $request->carbohydrates;
         $food->quantity = $request->quantity;
         $code = substr($food->food_code, 1, 3);
+
+        $old_food_code = $food->food_code;
         
-        $food->food_code = $this->makeFoodCode(
+        $new_food_code = $this->makeFoodCode(
             $request->fat, 
             $request->protein, 
             $request->calories, 
@@ -98,6 +101,20 @@ class FoodController extends Controller
             $request->food_category_id, 
             $code
         );
+
+        $food->food_code = $new_food_code;
+
+        //dd($new_food_code);
+        // update the new food_code by day visit DB_t
+        foreach ($allPatients as $p) {
+          foreach ($p->getDayvisits as $dv) {
+            
+            if($old_food_code == $dv->food_code){
+              $dv->food_code = $new_food_code;
+              $dv->save();
+            }  
+          }
+        }
 
         $food->save();
 
