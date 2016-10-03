@@ -3,24 +3,22 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col s8">
+		<div class="col s10">
 			<h2 class="deep-purple-text">Hranilne snovi</h2>
 		</div>
-		<div class="col s4">
+		<div class="col s2">
 			<div class="input-field">
-				{!! FORM::open(['method' => 'GET']) !!}
+				{{-- {!! FORM::open(['method' => 'GET']) !!}
 				{!! FORM::input('search','search', null, 
-				   ['data-list' => $list,
-              		'data-minchars' => '2',
-              		'class' => 'awesomplete',
-              		'placeholder' => 'Iskanje, vpiši kodo hrane']) 
+				   ['placeholder' => 'Iskanje, vpiši kodo hrane']) 
               	!!}
-				{!! FORM::close() !!}
+				{!! FORM::close() !!} --}}
+				<input type="text" id="search" placeholder="Iskanje">
 			</div>
 		</div>
 	</div>
 
-	<table class="centered bordered highlight">
+	<table class="centered" >
 		@if( count($Foods) == 0)
 			<div class="card-panel deep-purple-text lighten-1"><h5 style="text-align: center;">Seznam je prazen !</h5></div>
 		@else
@@ -34,13 +32,15 @@
 				<th data-field="carbohydrates">Og.H.(g)</th>
 				<th data-field="food_type">Vrsta hrane</th>
 				<th data-field="quantity">Količina</th>
+				<th></th>
+				<th></th>
 			</tr>
 			</thead>
 
-			<tbody class="tbody-center">
+			<tbody class="tbody-center" id="table">
 
 
-			@foreach ( $Foods->sortByDesc('updated_at') as $f)
+			@foreach ( $Foods as $f)
 				<tr>
 					<td>{{ $f->title  }}</td>
 					<td>{{ $f->food_code }}</td>
@@ -132,6 +132,21 @@
 			@endforeach
 			@endif
 			</tbody>
+			@if(count($Foods) > 1)
+				<tr id="sumBody" style="border-top: 1px solid #d0d0d0;" class="indigo lighten-5">
+	                <td></td>
+	                <td></td>
+	                <td style="font-weight: bold;">{{ $Foods->sum('calories') }}</td>
+	                <td style="font-weight: bold;">{{ $Foods->sum('fat') }}</td>
+	                <td style="font-weight: bold;">{{ $Foods->sum('protein') }}</td>
+	                <td style="font-weight: bold;">{{ $Foods->sum('carbohydrates') }}</td>
+	                <td></td>
+	                <td style="font-weight: bold;">{{ $Foods->sum('quantity') }}</td>
+	                <td></td>
+	                <td></td>
+	                <td></td>
+            	</tr>
+			@endif
 	</table>
 
 </div>

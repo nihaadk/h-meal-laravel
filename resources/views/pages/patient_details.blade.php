@@ -109,22 +109,24 @@
                             {!! FORM::close() !!}
                         </div>
                         @endforeach
-                    @endif
-
-                    {{-- <tr>
-                        <th>6.77</th>
-                        <th>1.22</th>
-                        <th>6.77</th>
-                        <th>6.34</th>
-                        <th>6.77</th> 
-                        <th>6.77</th>
-                        <th>6.34</th>
-                        <th>6.77</th>  
-                    </tr> --}}
                     
-
                     </tbody>
+                    @if(count($Patient->getDayvisits) > 1)
+                    <tr style="border-top: 1px solid #d0d0d0;" class="indigo lighten-5">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="font-weight: bold;">{{ $Patient->getDayvisits->sum('fat') }}</td>
+                        <td style="font-weight: bold;">{{ $Patient->getDayvisits->sum('protein') }}</td>
+                        <td style="font-weight: bold;">{{ $Patient->getDayvisits->sum('calories') }}</td>
+                        <td style="font-weight: bold;">{{ $Patient->getDayvisits->sum('carbohydrates') }}</td>
+                        <td style="font-weight: bold;">{{ $Patient->getDayvisits->sum('quantity') }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @endif
                 </table>
+                @endif
 
 
                 <!-- Add 1. Button-->
@@ -224,9 +226,19 @@
                         </div> 
 
                     @endforeach
-                    @endif
+                    
                     </tbody>
+                    @if(count($Patient->getMeasuredsugars) > 1)
+                    <tr style="border-top: 1px solid #d0d0d0;" class="indigo lighten-5">
+                        <td></td>
+                        <td style="font-weight: bold;">{{ $Patient->getMeasuredsugars->sum('number_of_visits') }}</td>
+                        <td style="font-weight: bold;">{{ $Patient->getMeasuredsugars->sum('measurement') }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @endif
                 </table>
+                @endif
 
                 <!-- Add 2. Button-->
                 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -356,13 +368,25 @@
                             </div>
                             {!! FORM::close() !!}
                         </div> 
-                        
-
-
                     @endforeach
-                    @endif
+                    
                     </tbody>
+                    @if(count($Patient->getVisits) > 1)
+                    <tr style="border-top: 1px solid #d0d0d0;" class="indigo lighten-5">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    @endif
                 </table>
+                @endif
 
                 <!-- Add 3. Button-->
                 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">

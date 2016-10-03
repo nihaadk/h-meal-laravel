@@ -27,7 +27,7 @@ class FoodController extends Controller
                 return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList(),'food_category' => $food_category]);
             }else{
                 $foods = Food::all();
-                return view('pages.food',['Foods' => $foods, 'list' => $this->returnFoodList(),'food_category' => $food_category]);
+                return view('pages.food',['Foods' => $foods->sortByDesc('updated_at'), 'list' => $this->returnFoodList(),'food_category' => $food_category]);
             }
         }
         else
