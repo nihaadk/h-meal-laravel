@@ -228,7 +228,7 @@
                     @endforeach
                     
                     </tbody>
-                    @if(count($Patient->getMeasuredsugars) > 1)
+                    {{-- @if(count($Patient->getMeasuredsugars) > 1)
                     <tr style="border-top: 1px solid #d0d0d0;" class="indigo lighten-5">
                         <td></td>
                         <td style="font-weight: bold;">{{ $Patient->getMeasuredsugars->sum('number_of_visits') }}</td>
@@ -236,7 +236,7 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    @endif
+                    @endif --}}
                 </table>
                 @endif
 
