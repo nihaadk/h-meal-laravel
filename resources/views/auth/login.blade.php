@@ -23,7 +23,7 @@
             <div class="input-field col s6">
               <i class="material-icons prefix">vpn_key</i>
               <input name="password"  id="icon_telephone" type="password" class="validate">
-              <label for="icon_telephone">Geslo</label>
+              <label for="icon_telephone">Password</label>
             </div>
             <div class="input-field col s6">
               <button class="btn waves-effect waves-light purple darken-4"
