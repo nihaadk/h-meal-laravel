@@ -1,9 +1,3 @@
-<ul id="dropdown1" class="dropdown-content purple-text">
-   <li><a href="#!">Help</a></li>
-  <li class="divider"></li>
-  <li><a href="/auth/logout">Logout</a></li>
-</ul>
-
 <nav >
   <div class="nav-wrapper purple darken-4">
     <a href="#" class="brand-logo">
@@ -17,23 +11,22 @@
         </li>
       @endcan
       <li>
-        <a  href="/app">Komentarji<i class="material-icons right">comment</i></a>
+        <a  href="/app">Comments<i class="material-icons right">comment</i></a>
       </li>
       <li>
-        <a  href="/app/patient/list">Bolniki<i class="material-icons right">perm_contact_calendar</i></a>
-      </li>
-
-      <li>
-        <a href="/app/food/list" >Hranilne snovi<i class="fa fa-cutlery material-icons right"></i></a>
+        <a  href="/app/patient/list">Patients<i class="material-icons right">perm_contact_calendar</i></a>
       </li>
 
       <li>
-        <a href="/app/chart/index">Prikaz grafov<i class="fa fa-area-chart material-icons right"></i></a>
+        <a href="/app/food/list" >Nutrients<i class="fa fa-cutlery material-icons right"></i></a>
       </li>
 
       <li>
-        <a href="/auth/logout">Odjava<i class="fa fa-sign-out material-icons right" ></i></a>
-        <!-- <a class="dropdown-button" href="#" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">perm_identity</i></a> -->
+        <a href="/app/chart/index">Charts<i class="fa fa-area-chart material-icons right"></i></a>
+      </li>
+
+      <li>
+        <a href="/auth/logout">Logout<i class="fa fa-sign-out material-icons right" ></i></a>
       </li>
   </div>
 </nav>

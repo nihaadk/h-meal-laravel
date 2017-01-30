@@ -5,9 +5,9 @@
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s3 blue-text"><a href="#dnevniVnosi">Dnevni vnosi</a></li>
-                    <li class="tab col s3"><a href="#izmerjenSladkor">Izmerjen sladkor</a></li>
-                    <li class="tab col s3"><a href="#obisk">Obiski</a></li>
+                    <li class="tab col s3 blue-text"><a href="#dnevniVnosi">Daily entries</a></li>
+                    <li class="tab col s3"><a href="#izmerjenSladkor">Measured sugar</a></li>
+                    <li class="tab col s3"><a href="#obisk">Visits</a></li>
                 </ul>
             </div>
             <div id="dnevniVnosi" class="col s12">
@@ -15,21 +15,21 @@
                 @if(count($Patient->getDayvisits) == 0)
                     <div class="col s12"> 
                        <div class="card-panel center">
-                           <h5 class="deep-purple-text">Ni podatkov.</h5>
+                           <h5 class="deep-purple-text">Array is empty.</h5>
                         </div>
                     </div>
                 @else
                 <table class="centered">
                     <thead>
                     <tr>
-                        <th data-field="datum">Datum meritve</th>
-                        <th data-field="vrstaHrane">Vrsta hrane</th>
-                        <th data-field="kodaHrane">Naziv hrane</th>
-                        <th data-field="mascober">Masčoba</th>
-                        <th data-field="beljakovine">Beljakovine</th>
-                        <th data-field="kalorije">Kalorije</th>
-                        <th data-field="ogljikohidrati">Oglj.hidrati</th>
-                        <th data-field="količinaZaušiteSnovi">Količina zaušite snovi</th>
+                        <th data-field="datum">Date of measurements</th>
+                        <th data-field="vrstaHrane">Food type</th>
+                        <th data-field="kodaHrane">Food name</th>
+                        <th data-field="mascober">Fat</th>
+                        <th data-field="beljakovine">Protein</th>
+                        <th data-field="kalorije">Calories</th>
+                        <th data-field="ogljikohidrati">Carbohydrates</th>
+                        <th data-field="količinaZaušiteSnovi">Sum</th>
                     </tr>
                     </thead>
 
@@ -39,7 +39,7 @@
                             <td>{{ $dv->updated_at->format('d.m.Y') }}</td>
                             
                             @if( $dv->food_category_id == 2)
-                               <td>Intravenozno</td> 
+                               <td>Intravenously</td> 
                             @endif
 
                             @if( $dv->food_category_id == 1)
@@ -53,13 +53,13 @@
                             <td>{{ $dv->carbohydrates }}</td>
                             <td>{{ $dv->quantity }}</td>
                             <td class="td-icon">
-                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanje" href="#{{ 'ds_model'.$dv->id }}" >
+                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Edit" href="#{{ 'ds_model'.$dv->id }}" >
                                     <i class="material-icons  green darken-3">mode_edit</i>
                                 </a>
                             </td>
                             @can('admin')
                                 <td class="td-icon">
-                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel_dv'.$dv->id }}"  data-method="delete">
+                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" href="#{{ 'deletemodel_dv'.$dv->id }}"  data-method="delete">
                                         <i class="material-icons  red darken-1">delete</i>
                                     </a>
                                 </td>
@@ -70,7 +70,7 @@
                         <!-- Delete Day Visit-->
                         <div id="{{ 'deletemodel_dv'.$dv->id }}" class="modal">
                             <div class="modal-content">
-                                <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                                <h5>Are you sure you want to delete?</h5>
                             </div>
                             <div class="modal-footer">
 
@@ -94,17 +94,17 @@
                             <div class="modal-content">
                                 <div class="input-field">
                                     {!! FORM::input('number', 'quantity', null, array('min'=>'0','max'=>'1000')) !!}
-                                    {!! FORM::label('quantity', 'Količina:') !!}
+                                    {!! FORM::label('quantity', 'Quantity:') !!}
                                 </div>
                                {{--  <div class="input-field">
                                     {!! FORM::text('updated_at', null, array('class' => 'datepicker')) !!}
-                                    {!! FORM::label('updated_at', 'Datum konca hospitalizacije:') !!}
+                                    {!! FORM::label('updated_at', 'End date of hospitalization:') !!}
                                 </div> --}}
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
 
-                                {!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
+                                {!! FORM::submit('Update', ['class' => 'btn green darken-3']) !!}
                             </div>
                             {!! FORM::close() !!}
                         </div>
@@ -135,7 +135,7 @@
                        class="btn-floating btn-large tooltipped waves-effect waves-light purple darken-4 modal-trigger "
                        data-position="left"
                        data-delay="50"
-                       data-tooltip="Dnevni vnos">
+                       data-tooltip="Daily entry">
                         <i class="material-icons">add</i>
                     </a>
                 </div>
@@ -146,16 +146,16 @@
                  @if(count($Patient->getMeasuredsugars) == 0)
                     <div class="col s12"> 
                        <div class="card-panel center">
-                           <h5 class="deep-purple-text">Ni podatkov.</h5>
+                           <h5 class="deep-purple-text">No data.</h5>
                         </div>
                     </div>
                 @else
                 <table class="centered">
                     <thead>
                     <tr>
-                        <th data-field="datum">Datum meritve</th>
-                        <th data-field="stevilkaObiska">Številka obiska</th>
-                        <th data-field="meritev">Meritev</th>
+                        <th data-field="datum">Date of measurments</th>
+                        <th data-field="stevilkaObiska">Number of visit</th>
+                        <th data-field="meritev">Measurment</th>
                     </tr>
                     </thead>
 
@@ -166,19 +166,19 @@
                             <td>{{ $ms->number_of_visits }}</td>
                             <td>
                                 @if($ms->measurement >= 11)
-                                    <b class="red-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sladkorno bolezen">{{ $ms->measurement }}<b>
+                                    <b class="red-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Diabetes">{{ $ms->measurement }}<b>
                                 @else 
                                     {{ $ms->measurement }}
                                 @endif
                             </td>
                             <td class="td-icon">
-                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanje" href="#{{ 'ms_model'.$ms->id }}" >
+                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Edit" href="#{{ 'ms_model'.$ms->id }}" >
                                     <i class="material-icons  green darken-3">mode_edit</i>
                                 </a>
                             </td>
                              @can('admin')
                                 <td class="td-icon">
-                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel_ms'.$ms->id }}"  data-method="delete">
+                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" href="#{{ 'deletemodel_ms'.$ms->id }}"  data-method="delete">
                                         <i class="material-icons  red darken-1">delete</i>
                                     </a>
                                 </td>
@@ -189,11 +189,11 @@
                         <!-- Delete Measured sugar-->
                         <div id="{{ 'deletemodel_ms'.$ms->id }}" class="modal">
                             <div class="modal-content">
-                                <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                                <h5>Are you sure you want to delete?</h5>
                             </div>
                             <div class="modal-footer">
 
-                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Cancel</a>
 
                                 {!! FORM::open([
                                     'method' => 'DELETE',
@@ -214,13 +214,13 @@
                             <div class="modal-content">
                                 <div class="input-field">
                                     {!! FORM::input('number','measurement',null, array('min'=>'1','step' => '0.1','max'=>'30')) !!}
-                                    {!! FORM::label('measurement', 'Meritev:') !!}
+                                    {!! FORM::label('measurement', 'Measurment:') !!}
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
 
-                                {!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
+                                {!! FORM::submit('Update', ['class' => 'btn green darken-3']) !!}
                             </div>
                             {!! FORM::close() !!}
                         </div> 
@@ -246,7 +246,7 @@
                        class="btn-floating btn-large tooltipped waves-effect waves-light purple darken-4 modal-trigger "
                        data-position="left"
                        data-delay="50"
-                       data-tooltip="Vnos izmerjenega sladkorja">
+                       data-tooltip="Measurement sugar entry">
                         <i class="material-icons">add</i>
                     </a>
                 </div>
@@ -258,21 +258,21 @@
                 @if(count($Patient->getVisits) == 0)
                         <div class="col s12"> 
                            <div class="card-panel center">
-                               <h5 class="deep-purple-text">Ni podatkov.</h5>
+                               <h5 class="deep-purple-text">No data.</h5>
                             </div>
                         </div>
                     @else
                 <table class="centered">
                     <thead>
                     <tr>
-                        <th data-field="stevilkaObiska">Število hospitalizacije</th>
-                        <th data-field="Datum zacetka hospitalizacije">Datum z/hosp.</th>
-                        <th data-field="Datum konca hospitalizacije">Datum k/hosp.</th>
-                        <th data-field="koda odelka">koda odelka</th>
-                        <th data-field="Visina">Visina</th>
-                        <th data-field="Teza">Teza</th>
-                        <th data-field="Idealna teza">Idealna teza</th>
-                        <th data-field="Hranilne potrebe">Hranilne potrebe</th>
+                        <th data-field="number of hospitalization">Number of hospitalization</th>
+                        <th data-field="the date of hospitalization">Start date</th>
+                        <th data-field="the end date of hospitalization">End date</th>
+                        <th data-field="section code">Section code</th>
+                        <th data-field="heigt">Heigt</th>
+                        <th data-field="weight">Weight</th>
+                        <th data-field="ideal weight">Ideal weight</th>
+                        <th data-field="Nutritional needs">Nutritional needs</th>
                     </tr>
                     </thead>
 
@@ -288,13 +288,13 @@
                             <td>{{ $v->ideal_heaviness }}</td>
                             <td>{{ $v->nutritive_needs }}</td>
                             <td class="td-icon">
-                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanje" href="#{{ 'v_model'.$v->id }}" >
+                                <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Edit" href="#{{ 'v_model'.$v->id }}" >
                                     <i class="material-icons  green darken-3">mode_edit</i>
                                 </a>
                             </td>
                             @can('admin')
                                 <td class="td-icon">
-                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel_v'.$v->id }}"  data-method="delete">
+                                    <a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" href="#{{ 'deletemodel_v'.$v->id }}"  data-method="delete">
                                         <i class="material-icons  red darken-1">delete</i>
                                     </a>
                                 </td>
@@ -304,11 +304,11 @@
                          <!-- Delete Visit-->
                         <div id="{{ 'deletemodel_v'.$v->id }}" class="modal">
                             <div class="modal-content">
-                                <h5>Ali ste prepričani, da želite izbrisati ?</h5>
+                                <h5>Are you sure you want to delete?</h5>
                             </div>
                             <div class="modal-footer">
 
-                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Cancel</a>
 
                                 {!! FORM::open([
                                     'method' => 'DELETE',
@@ -328,43 +328,43 @@
                              <div class="modal-content">
                                 <div class="input-field">
                                     {!! FORM::text('start_date', null, array('class' => 'datepicker')) !!}
-                                    {!! FORM::label('start_date', 'Datum začetka hospitalizacije:') !!}
+                                    {!! FORM::label('start_date', 'Start date of hospitalization:') !!}
                                 </div>
 
                                 <div class="input-field">
                                     {!! FORM::text('end_date', null, array('class' => 'datepicker')) !!}
-                                    {!! FORM::label('end_date', 'Datum konca hospitalizacije:') !!}
+                                    {!! FORM::label('end_date', 'End date of hospitalization:') !!}
                                 </div>
 
                                 <div class="input-field">
                                     {!! FORM::input('number','section_code',null, array('min'=>'0','max'=>'9999')) !!}
-                                    {!! FORM::label('section_code', 'Koda odelka:') !!}
+                                    {!! FORM::label('section_code', 'Food code:') !!}
                                 </div>
 
                                 <div class="input-field">
                                     {!! FORM::input('number','height',null, array('min'=>'0','max'=>'9999')) !!}
-                                    {!! FORM::label('height', 'Višina:') !!}
+                                    {!! FORM::label('height', 'Height:') !!}
                                 </div>
 
                                 <div class="input-field">
                                     {!! FORM::input('number','heaviness',null, array('min'=>'0','max'=>'9999')) !!}
-                                    {!! FORM::label('heaviness', 'Teža:') !!}
+                                    {!! FORM::label('heaviness', 'Heaviness:') !!}
                                 </div>
 
                                 <div class="input-field">
                                     {!! FORM::input('number','ideal_heaviness',null, array('min'=>'0','max'=>'9999')) !!}
-                                    {!! FORM::label('ideal_heaviness', 'Idealna teža:') !!}
+                                    {!! FORM::label('ideal_heaviness', 'Ideal heaviness:') !!}
                                 </div>
 
                                 <div class="input-field">
                                     {!! FORM::input('number','nutritive_needs',null, array('min'=>'0','max'=>'9999')) !!}
-                                    {!! FORM::label('nutritive_needs', 'Hranilne potrebe:') !!}
+                                    {!! FORM::label('nutritive_needs', 'Nutritional needs:') !!}
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+                                <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
 
-                                {!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
+                                {!! FORM::submit('Update', ['class' => 'btn green darken-3']) !!}
                             </div>
                             {!! FORM::close() !!}
                         </div> 
@@ -394,7 +394,7 @@
                        class="btn-floating btn-large tooltipped waves-effect waves-light purple darken-4 modal-trigger "
                        data-position="left"
                        data-delay="50"
-                       data-tooltip="Vnos obiska">
+                       data-tooltip="Visit entrys">
                         <i class="material-icons">add</i>
                     </a>
                 </div>
@@ -426,24 +426,24 @@
                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                     @endforeach
                 </select>
-                {!! FORM::label('food_type', 'Vrsta hrane:') !!}
+                {!! FORM::label('food_type', 'Food type:') !!}
             </div>
             
             <div class="input-field col 12">
                 <select name="food_code" id="subcategory" disabled>
                    <option value="" disabled selected>None</option>
                 </select>
-                {!! FORM::label('food_code', 'Naziv hrane:') !!}
+                {!! FORM::label('food_code', 'Food code:') !!}
             </div>
 
             <div class="input-field col 12">
                {!! FORM::input('number','quantity',null, array('min'=>'0','max'=>'10000')) !!}
-                {!! FORM::label('quantity', 'Količina zaušite snovi (ml):') !!}
+                {!! FORM::label('quantity', 'Intake of substances (ml):') !!}
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
-            {!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
+            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>
@@ -460,16 +460,16 @@
 
             <div class="input-field col 12">
                 {!! FORM::input('number','number_of_visits',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('number_of_visits', 'Število obiska:') !!}
+                {!! FORM::label('number_of_visits', 'Number of visit:') !!}
             </div>
             <div class="input-field col 12">
                 {!! FORM::input('number','measurement',null, array('min'=>'1','step' => '0.1','max'=>'30')) !!}
-                {!! FORM::label('measurement', 'Meritev (mmol/l):') !!}
+                {!! FORM::label('measurement', 'Measurement (mmol/l):') !!}
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3 " style="margin-left: 10px;">Prekliči</a>
-            {!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3 " style="margin-left: 10px;">Cancel</a>
+            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>
@@ -485,42 +485,42 @@
 
             <div class="input-field col 12">
                 {!! FORM::text('start_date', null, array('class' => 'datepicker')) !!}
-                {!! FORM::label('start_date', 'Datum začetka hospitalizacije:') !!}
+                {!! FORM::label('start_date', 'Start date of hospitalization:') !!}
             </div>
 
             <div class="input-field col 12">
                 {!! FORM::text('end_date', null, array('class' => 'datepicker')) !!}
-                {!! FORM::label('end_date', 'Datum konca hospitalizacije:') !!}
+                {!! FORM::label('end_date', 'End date of hospitalization:') !!}
             </div>
 
             <div class="input-field col 12">
                 {!! FORM::input('number','section_code',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('section_code', 'Koda odelka:') !!}
+                {!! FORM::label('section_code', 'Section code:') !!}
             </div>
 
             <div class="input-field col 12">
                 {!! FORM::input('number','height',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('height', 'Višina:') !!}
+                {!! FORM::label('height', 'Height:') !!}
             </div>
 
             <div class="input-field col 12">
                 {!! FORM::input('number','heaviness',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('heaviness', 'Teža:') !!}
+                {!! FORM::label('heaviness', 'Heaviness:') !!}
             </div>
 
             <div class="input-field col 12">
                 {!! FORM::input('number','ideal_heaviness',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('ideal_heaviness', 'Idealna teža:') !!}
+                {!! FORM::label('ideal_heaviness', 'Ideal heaviness:') !!}
             </div>
 
             <div class="input-field col 12">
                 {!! FORM::input('number','nutritive_needs',null, array('min'=>'0','max'=>'9999')) !!}
-                {!! FORM::label('nutritive_needs', 'Hranilne potrebe:') !!}
+                {!! FORM::label('nutritive_needs', 'Nutritional needs:') !!}
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
-            {!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
+            <a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
+            {!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
         </div>
         {!! FORM::close() !!}
     </div>

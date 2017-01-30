@@ -6,7 +6,7 @@
 
 	<div class="row">
 		<div class="col s8">
-			<h2 class="deep-purple-text">Uporabniki</h2>
+			<h2 class="deep-purple-text">Admin Dashboard</h2>
 		</div>
 		<div class="col s4">
 			<div class="input-field">
@@ -15,7 +15,7 @@
 				   ['data-list' => $list,
               		'data-minchars' => '2',
               		'class' => 'awesomplete',
-              		'placeholder' => 'Iskanje ...']) 
+              		'placeholder' => 'Search...']) 
               	!!}
 				{!! FORM::close() !!}
 			</div>
@@ -25,11 +25,11 @@
 
 	<table class="responsive-table bordered highlight">
 		@if( count($Users) == 0)
-			<div class="card-panel red lighten-1 white-text"><h5 style="text-align: center;">Seznam je prazen !</h5></div>
+			<div class="card-panel red lighten-1 white-text"><h5 style="text-align: center;">Array is empty!</h5></div>
 		@else
 			<thead>
 			<tr>
-				<th data-field="ime_in_priimek">Ime</th>
+				<th data-field="ime_in_priimek">Name</th>
 			</tr>
 			</thead>
 
@@ -42,12 +42,12 @@
 
 
 					<td class="td-icon">
-						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Urejanj" href="#{{ 'editmodel'.$user->id }}" >
+						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Edit" href="#{{ 'editmodel'.$user->id }}" >
 							<i class="material-icons  green darken-3">mode_edit</i>
 						</a>
 					</td>
 					<td class="td-icon">
-						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Brisanje" href="#{{ 'deletemodel'.$user->id }}"  data-method="delete">
+						<a class="btn-floating modal-trigger tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" href="#{{ 'deletemodel'.$user->id }}"  data-method="delete">
 							<i class="material-icons  red darken-1">delete</i>
 						</a>
 					</td>
@@ -57,16 +57,16 @@
 				<!-- Delete User Model-->
 				<div id="{{ 'deletemodel'.$user->id }}" class="modal">
 					<div class="modal-content">
-						<h5>Ali ste prepričani, da želite izbrisati ta račun {{ $user->name }} ?</h5>
+						<h5>Are you really want delete this account {{ $user->name }} ?</h5>
 					</div>
 					<div class="modal-footer">
 
-						<a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Prekliči</a>
+						<a href="#!" class=" modal-action modal-close waves-effect btn purple darken-3" style="margin-left: 10px;">Cancel</a>
 
 						{!! FORM::open([
                             'method' => 'DELETE',
                             'url' => ['app/user/delete', $user->id]]) !!}
-						{!! FORM::submit('Briši', ['class' => 'btn danger-3 red']) !!}
+						{!! FORM::submit('Delete', ['class' => 'btn danger-3 red']) !!}
 					</div>
 					{!! FORM::close() !!}
 				</div>
@@ -84,7 +84,7 @@
 
 						<div class="input-field col 12">
 							{!! FORM::text('name',null) !!}
-							{!! FORM::label('name', 'Ime:') !!}
+							{!! FORM::label('name', 'Name:') !!}
 						</div>
 
 						<div class="input-field col 12">
@@ -94,19 +94,19 @@
 
 						<div class="input-field col 12">
 							{!! FORM::password('password') !!}
-							{!! FORM::label('password', 'Geslo:') !!}
+							{!! FORM::label('password', 'Password:') !!}
 						</div>
 
 						<div class="input-field col 12">
 							{!! FORM::password('password_confirmation') !!}
-							{!! FORM::label('password', 'Geslo:') !!}
+							{!! FORM::label('password', 'Password (Confirm):') !!}
 						</div>
 
 					</div>
 					<div class="modal-footer">
-						<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
+						<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
 
-						{!! FORM::submit('Posodobi', ['class' => 'btn green darken-3']) !!}
+						{!! FORM::submit('Update', ['class' => 'btn green darken-3']) !!}
 					</div>
 					{!! FORM::close() !!}
 
@@ -124,7 +124,7 @@
     		class="btn-floating btn-large tooltipped waves-effect waves-light purple darken-4 modal-trigger "
     		data-position="left" 
     		data-delay="50"
-    		data-tooltip="Dodaj novega uporabnika">
+    		data-tooltip="Add new User">
     		<i class="material-icons">add</i>
     	</a>      
     </div>
@@ -146,7 +146,7 @@
 
 			<div class="input-field col 12">
 				{!! FORM::text('name',null) !!}
-				{!! FORM::label('name', 'Ime:') !!}
+				{!! FORM::label('name', 'Name:') !!}
 			</div>
 
 			<div class="input-field col 12">
@@ -156,21 +156,22 @@
 
 			<div class="input-field col 12">
 				{!! FORM::password('password') !!}
-				{!! FORM::label('password', 'Geslo:') !!}
+				{!! FORM::label('password', 'Password:') !!}
 			</div>
 
 			<div class="input-field col 12">
 				{!! FORM::password('password_confirmation') !!}
-				{!! FORM::label('password', 'Geslo:') !!}
+				{!! FORM::label('password', 'Password (Confirm):') !!}
 			</div>
 
 			<div class="input-field col 12">
 			 {!! FORM::select('role', array('user' => 'User', 'admin' => 'Admin')) !!}
+			 {!! FORM::label('role', 'Role:') !!}
 			</div>
 	    </div>
 	    <div class="modal-footer">
-			<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Prekliči</a>
-			{!! FORM::submit('Shrani', ['class' => 'btn btn-primary green darken-3']) !!}
+			<a href="#!" class=" modal-action modal-close waves-effect btn red darken-3" style="margin-left: 10px;">Cancel</a>
+			{!! FORM::submit('Save', ['class' => 'btn btn-primary green darken-3']) !!}
 	    </div>
 	{!! FORM::close() !!}
 </div>
