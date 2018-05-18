@@ -1,8 +1,8 @@
-![myimage-alt-tag](http://laravel-dn.herokuapp.com/img/logo.png)
+# H-meal
 
-### Web application for the control of nutrient intakes to patients in the intensive care unit.
+Web application for the control of nutrient intakes to patients in the intensive care unit.
   
-### Stuff used to make this:
+## Stuff used to make this:
 
  * [laravel](https://laravel.com/)
  * [chartjs](http://www.chartjs.org/)
